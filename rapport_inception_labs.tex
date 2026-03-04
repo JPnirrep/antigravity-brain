@@ -1,0 +1,173 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, fit, backgrounds}
+\usepackage{tcolorbox}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+% Couleurs
+\definecolor{primary}{RGB}{30, 60, 114}
+\definecolor{secondary}{RGB}{42, 82, 152}
+\definecolor{accent}{RGB}{200, 50, 50}
+\definecolor{lightgray}{RGB}{245, 245, 245}
+
+% Liens
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primary,
+    filecolor=magenta,      
+    urlcolor=accent,
+    pdftitle={Rapport d'Analyse - Inception Labs},
+    pdfpagemode=FullScreen,
+}
+
+% Style des titres
+\titleformat{\section}{\color{primary}\Large\bfseries}{\thesection}{1em}{}[\vspace{0.2ex}\titlerule]
+\titleformat{\subsection}{\color{secondary}\large\bfseries}{\thesubsection}{1em}{}
+
+% Boîtes d'alerte / Infoline
+\newtcolorbox{infobox}[1][]{colback=lightgray, colframe=primary, fonttitle=\bfseries, title=#1, arc=4mm}
+
+\title{\Huge \textbf{Analyse Stratégique : Intégration d'Inception Labs dans l'Écosystème Antigravity}}
+\author{Antigravity IA -- Expert Intelligence Artificielle}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+Ce rapport présente une analyse exhaustive et professionnelle de la documentation officielle de la plateforme d'intelligence artificielle \textbf{Inception Labs}. L'objectif est de cartographier ses capacités techniques (modèles \textit{Mercury 2} et \textit{Mercury Edit}) afin de définir une stratégie d'intégration experte au sein de l'écosystème Antigravity. L'analyse couvre quatre piliers essentiels : l'accélération du développement logiciel, l'augmentation des capacités de recherche, l'assistance à la rédaction de littérature spécialisée, et l'automatisation de la veille thématique experte (IA, neuro-atypisme, psychologie positive).
+\end{abstract}
+
+\vfill
+\tableofcontents
+\newpage
+
+\section{Introduction et Cartographie de l'API Inception Labs}
+
+Inception Labs propose une infrastructure logicielle orientée autour de l'efficacité du raisonnement (\textit{reasoning\_effort}) et de la manipulation avancée de code. La documentation officielle met en lumière deux modèles en production qui serviront de fondation à notre intégration :
+
+\begin{itemize}
+    \item \textbf{Mercury 2} : Le modèle de raisonnement principal, idéal pour les tâches conversationnelles et analytiques. Il possède une fenêtre de contexte massive de \textbf{128K tokens}, supporte les appels d'outils (\textit{Tool Use}) et les sorties structurées (\textit{Structured Outputs}).
+    \item \textbf{Mercury Edit} : Un modèle spécialisé de 32K tokens de contexte, optimisé exclusivement pour le code à travers des endpoints uniques : \textbf{FIM} (Fill-in-the-Middle), \textbf{Apply Edit} (application de modifications sur un snippet existant) et \textbf{Next Edit} (anticipation de la prochaine modification en fonction de l'historique du développeur).
+\end{itemize}
+
+\subsection{Architecture Globale Inception Labs}
+\begin{center}
+\begin{tikzpicture}[
+    node distance=2cm and 3cm,
+    font=\sffamily,
+    box/.style={rectangle, draw=primary, thick, fill=white, minimum width=3.5cm, minimum height=1.5cm, align=center, rounded corners},
+    arrow/.style={->, thick, primary, >=stealth}
+]
+
+% Noeuds
+\node[box] (antigravity) {Écosystème\\Antigravity};
+\node[box, right=of antigravity, yshift=1.5cm] (mercury2) {\textbf{Mercury 2}\\Chat / Tools / Reasoning};
+\node[box, right=of antigravity, yshift=-1.5cm] (mercuryedit) {\textbf{Mercury Edit}\\FIM / Apply / Next Edit};
+\node[box, right=of mercury2] (research) {Recherche, Livres\\\& Veille};
+\node[box, right=of mercuryedit] (code) {Auto-complétion\\\& DevOps};
+
+% Flèches
+\draw[arrow] (antigravity) -- node[above, sloped] {\scriptsize API REST / JSON} (mercury2.west);
+\draw[arrow] (antigravity) -- node[below, sloped] {\scriptsize API REST / Code} (mercuryedit.west);
+\draw[arrow] (mercury2) -- (research);
+\draw[arrow] (mercuryedit) -- (code);
+\draw[<->, dashed, thick, secondary] (mercury2) -- node[right] {\footnotesize Synergie Contextuelle} (mercuryedit);
+
+\end{tikzpicture}
+\end{center}
+
+\newpage
+\section{Axe 1 : Accélération Massive du Développement (Code)}
+
+L'écosystème Antigravity intègre déjà la création et l'édition de code. L'API d'Inception Labs permet de passer d'une simple génération à un processus d'édition itératif professionnel grâce au modèle \textbf{Mercury Edit}.
+
+\subsection{L'Endpoint Next Edit}
+Contrairement aux complétions classiques, Inception Labs propose l'endpoint \texttt{v1/edit/completions}. Cet outil nécessite 3 vecteurs contextuels :
+\begin{enumerate}
+    \item \texttt{<|recently\_viewed\_code\_snippets|>} : Le contexte passif du développeur.
+    \item \texttt{<|current\_file\_content|>} : L'état actuel du fichier avec la zone d'édition.
+    \item \texttt{<|edit\_diff\_history|>} : L'historique des diffs de l'utilisateur.
+\end{enumerate}
+
+\begin{infobox}[Schéma d'Intégration Antigravity - Code]
+Lorsqu'une tâche de programmation est lancée dans Antigravity, nous compilerons les 3 à 5 dernières actions (diffs) et les transmettrons à Mercury Edit. Le modèle extrapolera ainsi la refactorisation de manière instantanée, divisant le temps de réflexion par trois.
+\end{infobox}
+
+\subsection{L'Endpoint Apply Edit et Autocomplete (FIM)}
+Pour des tâches immédiates, l'approche \textbf{FIM (Fill-in-the-Middle)} via \texttt{v1/fim/completions} permet une complétion locale parfaite. Par ailleurs, \textbf{Apply Edit} (\texttt{v1/apply/completions}) permet de donner un code source et un extrait modifié à intégrer de manière chirurgicale, sans perturber l'indentation ou le style du programme parent.
+
+\section{Axe 2 : Augmentation des Capacités de Recherche et d'Analyse}
+
+La force du modèle \textbf{Mercury 2} réside dans son contrôle granulaire de la profondeur de réflexion via le paramètre \texttt{reasoning\_effort} (instant, low, medium, high). 
+
+\subsection{Configuration pour la Recherche Académique}
+Pour les analyses poussées, l'intégration Antigravity utilisera la configuration suivante :
+\begin{itemize}
+    \item \texttt{model: mercury-2}
+    \item \texttt{reasoning\_effort: high}
+    \item \texttt{reasoning\_summary: true} (Permet d'extraire et vérifier la chaîne logique du modèle).
+    \item \texttt{response\_format: json\_schema} (Obligatoire pour obtenir un JSON strict avec des clefs comme \texttt{sources}, \texttt{theses\_principales}, \texttt{biais\_identifies}).
+\end{itemize}
+
+Cette approche permet de dépouiller d'importants corpus (jusqu'à 128K tokens) en renvoyant une structure de données inaltérable et directement interfaçable avec les bases de données d'Antigravity.
+
+\newpage
+\section{Axe 3 : Structuration et Écriture de Livres}
+
+La fenêtre contextuelle de 128 000 tokens couplée au principe de \textbf{Streaming et Diffusion} offre une expérience révolutionnaire pour le processus d'écriture (qu'il s'agisse de sciences dures ou de vulgarisation).
+
+\subsection{Workflow d'Écriture Assistée}
+\begin{center}
+\begin{tikzpicture}[
+    node distance=1.5cm and 2cm,
+    font=\sffamily,
+    metap/.style={rectangle, draw=secondary, thick, fill=lightgray, text width=4.5cm, minimum height=1cm, align=center, rounded corners},
+    arrow/.style={->, thick, primary, >=stealth}
+]
+
+\node[metap, text width=5cm] (plan) {1. Injection du Contexte (Notes de Recherche)};
+\node[metap, text width=5cm, below=of plan] (struct) {2. Mercury 2 (Structured) : Génération du Plan détaillé};
+\node[metap, text width=5cm, below=of struct] (draft) {3. Mercury 2 (Streaming) : Rédaction par chapitre};
+\node[metap, text width=5cm, below=of draft] (refine) {4. Mercury Edit (Apply-Edit) : Affinement Chirurgical du style};
+
+\draw[arrow] (plan) -- (struct);
+\draw[arrow] (struct) -- (draft);
+\draw[arrow] (draft) -- (refine);
+
+\end{tikzpicture}
+\end{center}
+
+Le paramètre \texttt{diffusing=true} lors d'un appel API streaming permet d'implémenter, au niveau frontend d'Antigravity, un rendu visuel du "débruitage" de la réflexion ("denoising process"), stimulant un brainstorming plus organique entre vous et la machine lors de la co-écriture.
+
+\section{Axe 4 : Veille Haut Niveau (IA, Neuro-atypisme, Psychologie Positive)}
+
+L'automatisation thématique s'appuie sur la capacité \textbf{Tool Use} de Mercury 2.
+
+\subsection{Le triptyque : Scraping + Tool Use + Structured Outputs}
+Pour organiser votre veille :
+\begin{enumerate}
+    \item \textbf{Extraction quotidienne :} Antigravity interroge des flux RSS (ArXiv, Nature, revues de psy...).
+    \item \textbf{Curation via Tool Use :} Le modèle utilise des outils virtuels type \texttt{search\_google\_scholar} passés dans les \texttt{tools} de l'API. Il croise les données et valide la pertinence.
+    \item \textbf{Synthèse structurée :} L'endpoint retourne un \texttt{json\_schema} avec : \texttt{resume}, \texttt{implications\_neuro\_atypisme}, \texttt{tags}.
+\end{enumerate}
+
+\section{Conclusion}
+
+L'intégration d'Inception Labs dans notre base applicative offre une plus-value paradigmatique : on sépare l'ingénierie logicielle (traitée par \textit{Mercury Edit}) de la réflexion systémique (traitée par \textit{Mercury 2}). Ce couplage est l'architecture parfaite pour catalyser la production web tech ainsi que l'élaboration de vos oeuvres littéraires.
+
+\end{document}

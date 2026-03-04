@@ -1,0 +1,23 @@
+# --- Sécurité Antigravity ---
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+lib/
+*.log
+firebase-debug.log
+firebase-debug.*.log
+.firebase/
+.agents/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
