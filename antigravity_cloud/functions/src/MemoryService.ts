@@ -61,7 +61,7 @@ export class MemoryService {
 
             return messages.reverse();
         } catch (error) {
-            logger.error(`Erreur historique pour ${chatId}:`, error);
+            logger.warn(`Mémoire indisponible (Firestore) pour ${chatId}. Mode dégradé activé.`, error);
             return [];
         }
     }
@@ -80,7 +80,7 @@ export class MemoryService {
                     timestamp: admin.firestore.FieldValue.serverTimestamp()
                 });
         } catch (error) {
-            logger.error(`Erreur enregistrement message pour ${chatId}:`, error);
+            logger.warn(`Échec enregistrement message (Firestore) pour ${chatId}`);
         }
     }
 
@@ -94,13 +94,11 @@ export class MemoryService {
                 try {
                     return JSON.parse(doc.data()?.contextSummary);
                 } catch (e) {
-                    logger.error("JSON Index corrompu dans Firestore", e);
                     return null;
                 }
             }
             return null;
         } catch (error) {
-            logger.error(`Erreur recup résumé pour ${chatId}:`, error);
             return null;
         }
     }
@@ -113,7 +111,7 @@ export class MemoryService {
             const doc = await db.collection("chats").doc(chatId.toString()).get();
             return doc.exists ? (doc.data()?.prefs || { mode: "standard" }) : { mode: "standard" };
         } catch (error) {
-            logger.error(`Erreur recup prefs pour ${chatId}:`, error);
+            logger.warn(`Prefs indisponibles pour ${chatId}. Par défaut: standard.`);
             return { mode: "standard" };
         }
     }
@@ -128,7 +126,7 @@ export class MemoryService {
                 lastUpdated: admin.firestore.FieldValue.serverTimestamp()
             }, { merge: true });
         } catch (error) {
-            logger.error(`Erreur mise à jour prefs pour ${chatId}:`, error);
+            logger.error(`Erreur mise à jour prefs pour ${chatId}`);
         }
     }
 
@@ -142,7 +140,7 @@ export class MemoryService {
                 lastUpdated: admin.firestore.FieldValue.serverTimestamp()
             }, { merge: true });
         } catch (error) {
-            logger.error(`Erreur mise à jour résumé pour ${chatId}:`, error);
+            logger.error(`Erreur mise à jour résumé pour ${chatId}`);
         }
     }
 
@@ -155,7 +153,6 @@ export class MemoryService {
             const queryVector = await this.getEmbedding(searchText);
             if (queryVector.length === 0) return [];
 
-            // Utilisation de la recherche vectorielle de Firestore (native et peu coûteuse)
             const snapshot = await db.collection("bricks")
                 .findNearest({
                     vectorField: "embedding",
@@ -176,7 +173,7 @@ export class MemoryService {
             });
             return results;
         } catch (error) {
-            logger.error("Erreur lors de la recherche par résonance", error);
+            logger.warn("Recherche vectorielle désactivée (Firestore non prêt)");
             return [];
         }
     }
@@ -207,7 +204,7 @@ export class MemoryService {
                 await this.updateContextSummary(chatId, summaryObj);
             }
         } catch (error) {
-            logger.error(`Échec de la synthèse pour ${chatId}:`, error);
+            // Silencieux
         }
     }
 
@@ -216,7 +213,6 @@ export class MemoryService {
      */
     static async saveKnowledgeBrick(chatId: string, title: string, content: string, tags: string[] = []): Promise<void> {
         try {
-            // Génération du vecteur de résonance pour cette brique
             const embedding = await this.getEmbedding(`${title} ${content}`);
 
             await db.collection("bricks").add({
@@ -228,9 +224,8 @@ export class MemoryService {
                 source: "telegram_extraction",
                 createdAt: admin.firestore.FieldValue.serverTimestamp()
             });
-            logger.info(`Brique stockée avec succès (Vectorisée) : ${title}`);
         } catch (error) {
-            logger.error(`Erreur brique pour ${chatId}:`, error);
+            logger.warn(`Échec stockage brique (Firestore) pour ${chatId}`);
         }
     }
 }
