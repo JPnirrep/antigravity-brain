@@ -27,8 +27,8 @@ async function runTest() {
         }
     }
 
-    const weight = await MemoryService.getChatWeight(testChatId);
-    console.log(`Poids actuel du chat : ${weight} caractères.`);
+    // const weight = await MemoryService.getChatWeight(testChatId);
+    // console.log(`Poids actuel du chat : ${weight} caractères.`);
 
     // 2. Déclenchement de la synthèse
     console.log("2. Lancement de la synthèse (Palier 2)...");

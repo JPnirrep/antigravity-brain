@@ -145,6 +145,34 @@ export class MemoryService {
     }
 
     /**
+     * Effectue une recherche web via Tavily (Explorateur de Chaos).
+     */
+    static async searchWeb(query: string): Promise<string> {
+        try {
+            const apiKey = process.env.TAVILY_API_KEY;
+            if (!apiKey) throw new Error("TAVILY_API_KEY manquante");
+
+            const response = await axios.post("https://api.tavily.com/search", {
+                api_key: apiKey,
+                query: query,
+                search_depth: "advanced",
+                max_results: 5,
+                include_answer: true
+            });
+
+            const results = response.data.results || [];
+            const answer = response.data.answer ? `\n### RÉPONSE DIRECTE TAVILY :\n${response.data.answer}\n` : "";
+
+            const formattedResults = results.map((r: any) => `- [${r.title}](${r.url})\n  ${r.content}`).join("\n\n");
+
+            return `${answer}\n### RÉSULTATS DE RECHERCHE :\n${formattedResults}`;
+        } catch (error) {
+            logger.error("[SEARCH] Échec de la recherche Tavily", error);
+            return "⚠️ Échec de la recherche web.";
+        }
+    }
+
+    /**
      * Recherche de briques par "Résonance" (Vector Search).
      * Retourne les 3 briques les plus proches sémantiquement.
      */
@@ -171,40 +199,168 @@ export class MemoryService {
                     tags: data.tags
                 });
             });
-            return results;
+            return results.slice(0, 3);
         } catch (error) {
-            logger.warn("Recherche vectorielle désactivée (Firestore non prêt)");
+            logger.error("[RESONANCE] Échec de la recherche vectorielle", error);
             return [];
         }
     }
 
     /**
+     * Récupère le contexte de la semaine écoulée pour le récapitulatif email.
+     */
+    static async getWeeklyContext(chatId: string): Promise<any> {
+        try {
+            const oneWeekAgo = admin.firestore.Timestamp.fromDate(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000));
+
+            // 1. Récupérer les résumés récents (Palier 2)
+            const chatSnap = await admin.firestore().collection("chats").doc(chatId).get();
+            const indexJSON = chatSnap.exists ? chatSnap.data()?.indexJSON : null;
+
+            // 2. Récupérer les "Pépites" (Palier 3) - Simplifié pour éviter index composite
+            const bricksSnap = await admin.firestore().collection("bricks")
+                .where("chatId", "==", chatId)
+                .limit(50) // On en prend un peu plus et on filtre
+                .get();
+
+            const bricks = bricksSnap.docs
+                .map(doc => ({
+                    title: doc.data().title,
+                    content: doc.data().content,
+                    tags: doc.data().tags,
+                    createdAt: doc.data().createdAt?.toDate() || new Date(0)
+                }))
+                .filter(b => b.createdAt >= oneWeekAgo.toDate())
+                .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+                .slice(0, 20);
+
+            // 3. Récupérer les recherches web effectuées
+            const searchMessagesSnap = await admin.firestore().collection("chats").doc(chatId).collection("messages")
+                .where("createdAt", ">=", oneWeekAgo)
+                .where("role", "==", "user")
+                .get();
+
+            const searches = searchMessagesSnap.docs
+                .map(doc => doc.data().text)
+                .filter(text => text.startsWith("/recherche"));
+
+            return { indexJSON, bricks, searches };
+        } catch (error) {
+            logger.error("[WEEKLY] Échec de la récupération du contexte", error);
+            return null;
+        }
+    }
+
+    /**
      * Synthèse de mémoire (Palier 2).
+     * Utilise une détection de "substance" au lieu d'un simple compteur.
      */
     static async triggerSummarization(chatId: string, currentHistory: Message[]): Promise<void> {
         try {
-            const snapshot = await db.collection("chats").doc(chatId.toString()).collection("messages").count().get();
-            const count = snapshot.data().count;
+            const contentToSummarize = currentHistory.map(m => `${m.role}: ${m.content}`).join("\n");
 
-            if (count > 0 && count % 20 === 0) {
-                const contentToSummarize = currentHistory.map(m => `${m.role}: ${m.content}`).join("\n");
+            // Sécurité : Ne pas synthétiser si le contenu est trop court (< 2000 chars)
+            if (contentToSummarize.length < 2000) return;
 
-                const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-                    model: "anthropic/claude-3-haiku",
-                    messages: [
-                        { role: "system", content: "Transforme l'historique en INDEX JSON : { 'topics': [], 'decisions': [], 'summary': '' }" },
-                        { role: "user", content: contentToSummarize }
-                    ],
-                    response_format: { type: "json_object" }
-                }, {
-                    headers: { "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}` }
-                });
+            // Détection de "Substance" - Est-ce que ça vaut le coup de synthétiser ?
+            const checkResponse = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
+                model: "google/gemini-2.0-flash-001",
+                messages: [
+                    { role: "system", content: "Réponds uniquement par OUI ou NON. Est-ce que cet échange contient des informations structurantes, des décisions ou des concepts profonds qui méritent d'être indexés ?" },
+                    { role: "user", content: contentToSummarize.slice(-3000) } // On regarde la fin de l'échange
+                ],
+                max_tokens: 5
+            }, {
+                headers: { "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}` },
+                timeout: 10000
+            });
 
-                const summaryObj = JSON.parse(response.data.choices[0].message.content);
-                await this.updateContextSummary(chatId, summaryObj);
+            const shouldSummarize = checkResponse.data.choices[0]?.message?.content?.trim().toUpperCase();
+            if (shouldSummarize !== "OUI") return;
+
+            logger.info(`[MEMORY] Substance détectée pour ${chatId}, lancement de la synthèse...`);
+
+            const nivSystemPrompt = `Tu es le Synthétiseur NIV. Ton rôle est d'extraire la SUBSTANCE de la conversation.
+REFUSE l'IA-Speak, les résumés génériques et le vide académique.
+Produis un INDEX JSON strict :
+{
+  "intuitions": [], // Les idées fortes, les moments de bascule, les paradoxes résolus.
+  "ancrages": [], // Les faits, décisions, noms, dates techniques.
+  "trajectoire": "", // Une phrase sur l'évolution du Logos dans cet échange.
+  "vibe": "" // La tonalité émotionnelle/intellectuelle (ex: "Chaos fécond", "Tension analytique").
+}
+Sois percutant, chirurgical, humain.`;
+
+            const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
+                model: "anthropic/claude-3-haiku",
+                messages: [
+                    { role: "system", content: nivSystemPrompt },
+                    { role: "user", content: contentToSummarize }
+                ],
+                response_format: { type: "json_object" }
+            }, {
+                headers: { "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}` }
+            });
+
+            const summaryObj = JSON.parse(response.data.choices[0].message.content);
+            await this.updateContextSummary(chatId, summaryObj);
+            logger.info(`[MEMORY] Index JSON mis à jour pour ${chatId}`);
+
+            // PALIER 3 : Extraction de briques de substance (asynchrone)
+            this.extractBricks(chatId, currentHistory).catch(e => logger.error("[MEMORY] Erreur extractBricks background", e));
+
+        } catch (error) {
+            logger.error("[MEMORY] Échec de la synthèse", error);
+        }
+    }
+
+    /**
+     * Extrait des briques de connaissance (Palier 3) à partir de l'historique.
+     * Utilise Claude-3 Haiku pour identifier ce qui a une "valeur de substance" réelle.
+     */
+    static async extractBricks(chatId: string, currentHistory: Message[]): Promise<void> {
+        try {
+            const content = currentHistory.map(m => `${m.role}: ${m.content}`).join("\n");
+
+            const nivExtractorPrompt = `Tu es l'Extracteur de Substance NIV.
+Analyse cet échange et identifie UNIQUEMENT les pépites de connaissance, les concepts originaux ou les décisions stratégiques qui méritent d'être gravés dans la mémoire à long terme.
+
+Produis un JSON sous forme de liste :
+{
+  "bricks": [
+    {
+      "title": "Titre court et percutant",
+      "content": "Description dense et sans gras",
+      "tags": ["Tag1", "Tag2"],
+      "relevanceScore": 0.9 // Score de 0 à 1 (substance vs bruit)
+    }
+  ]
+}
+Si rien ne mérite d'être sauvé, renvoie une liste vide.
+PAS DE BLA-BLA. JUSTE LE JSON.`;
+
+            const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
+                model: "anthropic/claude-3-haiku",
+                messages: [
+                    { role: "system", content: nivExtractorPrompt },
+                    { role: "user", content: content.slice(-5000) } // Focus sur la fin de l'échange
+                ],
+                response_format: { type: "json_object" }
+            }, {
+                headers: { "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}` }
+            });
+
+            const data = JSON.parse(response.data.choices[0].message.content);
+            const bricks = data.bricks || [];
+
+            for (const brick of bricks) {
+                if (brick.relevanceScore > 0.7) {
+                    await this.saveKnowledgeBrick(chatId, brick.title, brick.content, brick.tags);
+                    logger.info(`[MEMORY] Brique extraite : ${brick.title}`);
+                }
             }
         } catch (error) {
-            // Silencieux
+            logger.error("[MEMORY] Échec extraction briques", error);
         }
     }
 
@@ -221,7 +377,7 @@ export class MemoryService {
                 content,
                 tags,
                 embedding: (admin.firestore as any).VectorValue.fromArray(embedding),
-                source: "telegram_extraction",
+                source: "niv_extraction",
                 createdAt: admin.firestore.FieldValue.serverTimestamp()
             });
         } catch (error) {
