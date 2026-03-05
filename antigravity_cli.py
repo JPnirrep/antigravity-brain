@@ -20,6 +20,7 @@ def main():
 
     model = "anthropic/claude-3-haiku"
     history = []
+    nb_path = r"C:\Users\JP\.agents\g.nb"
 
     while True:
         try:
@@ -37,6 +38,27 @@ def main():
             model = user_input.replace("/model ", "").strip()
             print(f"Modèle changé pour : {model}")
             continue
+
+        if user_input == "/nb":
+            if os.path.exists(nb_path):
+                with open(nb_path, "r", encoding="utf-8") as f:
+                    print("\n--- GLOBAL NOTEBOOK (g.nb) ---")
+                    print(f.read())
+                    print("-" * 30)
+            else:
+                print("NoteBook g.nb introuvable.")
+            continue
+
+        if user_input.startswith("/nb+"):
+            note = user_input.replace("/nb+", "").strip()
+            from datetime import datetime
+            timestamp = datetime.now().strftime("%Y%m%d")
+            formatted_note = f"[{timestamp}|USER|NOTE] {note}\n"
+            with open(nb_path, "a", encoding="utf-8") as f:
+                f.write(formatted_note)
+            print("Note ajoutée au g.nb.")
+            continue
+
 
         history.append({"role": "user", "content": user_input})
         

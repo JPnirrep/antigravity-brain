@@ -69,7 +69,7 @@ export class MemoryService {
     /**
      * Enregistre un message.
      */
-    static async saveMessage(chatId: string, role: "user" | "assistant", content: string): Promise<void> {
+    static async saveMessage(chatId: string, role: "user" | "assistant" | "system", content: string): Promise<void> {
         try {
             await db.collection("chats")
                 .doc(chatId.toString())
@@ -102,6 +102,33 @@ export class MemoryService {
         } catch (error) {
             logger.error(`Erreur recup résumé pour ${chatId}:`, error);
             return null;
+        }
+    }
+
+    /**
+     * Récupère les préférences du chat (ex: mode actif).
+     */
+    static async getChatPrefs(chatId: string): Promise<any> {
+        try {
+            const doc = await db.collection("chats").doc(chatId.toString()).get();
+            return doc.exists ? (doc.data()?.prefs || { mode: "standard" }) : { mode: "standard" };
+        } catch (error) {
+            logger.error(`Erreur recup prefs pour ${chatId}:`, error);
+            return { mode: "standard" };
+        }
+    }
+
+    /**
+     * Met à jour les préférences du chat.
+     */
+    static async updateChatPrefs(chatId: string, prefs: object): Promise<void> {
+        try {
+            await db.collection("chats").doc(chatId.toString()).set({
+                prefs,
+                lastUpdated: admin.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+        } catch (error) {
+            logger.error(`Erreur mise à jour prefs pour ${chatId}:`, error);
         }
     }
 
@@ -197,7 +224,7 @@ export class MemoryService {
                 title,
                 content,
                 tags,
-                embedding: admin.firestore.VectorValue.fromArray(embedding),
+                embedding: (admin.firestore as any).VectorValue.fromArray(embedding),
                 source: "telegram_extraction",
                 createdAt: admin.firestore.FieldValue.serverTimestamp()
             });
