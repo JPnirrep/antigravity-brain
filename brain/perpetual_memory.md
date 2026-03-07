@@ -1,23 +1,25 @@
 # 🧠 Antigravity Global Status - Mémoire Perpétuelle
 
 ## 🛡️ État du Projet (Neural Hub)
-**Dernière mise à jour :** 2026-03-06 18:15
+**Dernière mise à jour :** 2026-03-07 12:15
 **Branche Git :** `main`
-**Statut :** En cours de déploiement de la Mémoire Perpétuelle.
+**Statut :** Optimisation v2.0 terminée. Roadmap v3.0 validée (Phase Souveraineté).
 
 ## 🚀 Dernières Décisions Validées
-1. **Pont Firebase-Local** : Utilisation d'un script `sync_brain.py` pour importer la substance Telegram.
-2. **Architecture NIV** : Priorité à la substance et au "logos" sur le bruit académique.
-3. **Mémoire Neurologique** : Chaque conversation est un neurone connecté par résonance vectorielle.
+1. **Pont Firebase-Local** : Utilisation d'un script `sync_brain.py` pour importer la substance Telegram. (Actif)
+2. **Optimisation "Token-Frugal" v2.0** : Knowledge Router, Context Shaving et Tiering LLM (DeepSeek/Gemini Lite) opérationnels.
+3. **Architecture v3.0** : Transition vers un système hybride VPS (Hetzner) avec NanoClaw (Action) et AFFiNE (Wiki).
 
 ## 🔗 Connexions Actives (Graphe)
 - [Advent of Agents Memory Protocol](file:///c:/Users/JP/Documents/GitHub/antigravity-brain/bricks/2026-03-06_advent_of_agents_memory.md) <--> [NanoClaw Hetzner](file:///c:/Users/JP/Documents/GitHub/antigravity-brain/bricks/2026-03-06_nanoclaw_hetzner.md) (Implémentation mémoire)
 - [OpenRouter Budget](file:///c:/Users/JP/Documents/GitHub/antigravity-brain/bricks/2026-03-06_openrouter_budget.md) <--> [Cloud Brain](file:///c:/Users/JP/Documents/GitHub/antigravity-brain/antigravity_cloud/functions/src/index.ts) (Optimisation token)
+- [Roadmap v3.0](file:///c:/Users/JP/Documents/GitHub/antigravity-brain/knowledge/governance/implementation_plan_v3.md) <--> [Préréquis v3.0](file:///c:/Users/JP/Documents/GitHub/antigravity-brain/knowledge/governance/prerequis_v3.md)
 
 ## 📌 Fil d'Ariane (Session en cours)
-- Mise en place du pont Firestore.
-- Initialisation du checkpointing Git pour la persistance entre sessions.
-- Récurrence : Cron local pour synchroniser la substance chaque jour.
+- Déploiement terminé de l'optimisation Token-Frugal v2.0 (DeepSeek + Router).
+- Analyse de convergence validée pour les briques du 6 mars.
+- Roadmap v3.0 tracée : Prochaine étape = Provisionnement VPS Hetzner.
+- **Checklist de reprise** : Voir [Préréquis v3.0](file:///c:/Users/JP/Documents/GitHub/antigravity-brain/knowledge/governance/prerequis_v3.md).
 
 ---
 > [!IMPORTANT]
