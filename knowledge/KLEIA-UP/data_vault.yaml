@@ -1,0 +1,22 @@
+module_metadata:
+  id: "KLEIA_UP_001"
+  status: "AUDITED_AND_DEDUPLICATED"
+  legacy_name: "Souffles Positifs"
+
+core_exercises_13:
+  - {name: "Test VIA Character", source: "L1", goal: "Forces signatures"}
+  - {name: "Récit de réussite", source: "L1/L5", goal: "Valorisation/Storytelling"}
+  - {name: "Auto-diagnostic Drivers", source: "L2", goal: "Profil de stress"}
+  - {name: "Phrases Antidotes", source: "L2", goal: "Permissions mentales"}
+  - {name: "Respiration abdominale", source: "L3/V1", goal: "Gestion du trac"}
+  - {name: "Ancrage (Arbre)", source: "L3/L4/V1", goal: "Stabilité physique"}
+  - {name: "Verticalité (Corde)", source: "L3/W4", goal: "Alignement corps"}
+  - {name: "Miroir émotionnel", source: "L4", goal: "Expressivité visage"}
+  - {name: "Le Golden Circle", source: "L5", goal: "Sens du message"}
+  - {name: "Structure 3 actes", source: "L5", goal: "Architecture discours"}
+  - {name: "Méthode DESC", source: "L6", goal: "Assertivité"}
+  - {name: "Liste des Besoins CNV", source: "L6", goal: "Clarification émotionnelle"}
+  - {name: "Power Posing", source: "V1/W4", goal: "Confiance hormonale"}
+
+evolution_tracking:
+  instruction: "Traiter 'Souffles Positifs' comme la base archive et 'KLEIA-UP' comme l'identité active."
