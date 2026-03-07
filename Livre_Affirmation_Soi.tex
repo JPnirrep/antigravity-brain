@@ -1,0 +1,74 @@
+\documentclass[11.5pt,a4paper]{book}
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\geometry{papersize={148mm,210mm}, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm}
+
+\setmainfont{Arial}
+\setsansfont{Arial}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{CyrulnikBlue}{HTML}{212F3D}
+\definecolor{HighlightGold}{HTML}{D4AC0D}
+
+\newtcolorbox{NoteClinique}{
+  colback=white,
+  colframe=CyrulnikBlue,
+  fonttitle=\bfseries,
+  title=Anamnèse Clinique,
+  arc=0mm,
+  breakable
+}
+
+\newtcolorbox{FocusHumain}{
+  colback=gray!5,
+  colframe=CyrulnikBlue,
+  fonttitle=\bfseries,
+  title=Le Récit de la Résilience,
+  arc=0mm,
+  breakable
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize L'Affirmation de Soi}
+\rhead{\footnotesize Boris Cyrulnik Style}
+\rfoot{\thepage}
+
+\title{
+    \Huge \textbf{L'Affirmation de Soi} \\
+    \Large \textit{Du "Non-Dit" à la Résilience du Dire} \\
+    \vspace{1cm}
+    \large Document de Référence Scientifique et Humain
+}
+\author{Antigravity AI System -- Expertise Consolidée}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\include{manifeste}
+
+\include{ch1}
+\include{ch2}
+\include{ch3}
+\include{ch4}
+\include{ch5}
+\include{ch6}
+\include{ch7}
+\include{ch8}
+\include{ch9}
+\include{ch10}
+\include{ch11}
+\include{ch12}
+\include{conclusion}
+\include{bib}
+
+\end{document}

@@ -79,8 +79,8 @@ export class MemoryService {
                     content,
                     timestamp: admin.firestore.FieldValue.serverTimestamp()
                 });
-        } catch (error) {
-            logger.warn(`Échec enregistrement message (Firestore) pour ${chatId}`);
+        } catch (error: any) {
+            logger.warn(`Échec enregistrement message (Firestore) pour ${chatId}: ${error.message}`);
         }
     }
 
@@ -234,15 +234,19 @@ export class MemoryService {
                 .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
                 .slice(0, 20);
 
-            // 3. Récupérer les recherches web effectuées
+            // 3. Récupérer les recherches web effectuées - Simplifié pour éviter index composite
             const searchMessagesSnap = await admin.firestore().collection("chats").doc(chatId).collection("messages")
-                .where("createdAt", ">=", oneWeekAgo)
-                .where("role", "==", "user")
+                .limit(100)
                 .get();
 
             const searches = searchMessagesSnap.docs
-                .map(doc => doc.data().text)
-                .filter(text => text.startsWith("/recherche"));
+                .map(doc => ({
+                    text: doc.data().text || "",
+                    role: doc.data().role,
+                    createdAt: doc.data().createdAt?.toDate() || new Date(0)
+                }))
+                .filter(m => m.role === "user" && m.createdAt >= oneWeekAgo.toDate() && m.text.startsWith("/recherche"))
+                .map(m => m.text);
 
             return { indexJSON, bricks, searches };
         } catch (error) {
@@ -380,8 +384,8 @@ PAS DE BLA-BLA. JUSTE LE JSON.`;
                 source: "niv_extraction",
                 createdAt: admin.firestore.FieldValue.serverTimestamp()
             });
-        } catch (error) {
-            logger.warn(`Échec stockage brique (Firestore) pour ${chatId}`);
+        } catch (error: any) {
+            logger.warn(`Échec stockage brique (Firestore) pour ${chatId}: ${error.message}`);
         }
     }
 }

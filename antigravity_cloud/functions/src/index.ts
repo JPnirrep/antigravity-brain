@@ -175,28 +175,38 @@ export const antigravityBot = onRequest({
 
             try {
                 const context = await MemoryService.getWeeklyContext(chatId);
-                if (context && (context.bricks.length > 0 || context.searches.length > 0)) {
-                    const resend = new Resend(process.env.RESEND_API_KEY);
-                    const recapPrompt = `TU ES L'ARCHIVISTE DE LA SUBSTANCE (NIV). Récapitulatif HSP/TDAH. Données : ${JSON.stringify(context)}. Format HTML chuinké.`;
-                    const aiResponse = await axios.post("https://api.inceptionlabs.ai/v1/chat/completions", {
-                        model: "mercury-2",
-                        messages: [{ role: "system", content: recapPrompt }],
-                        max_tokens: 3000,
-                        reasoning_effort: "medium"
-                    }, { headers: { "Authorization": `Bearer ${process.env.INCEPTION_API_KEY}` } });
+                // Si le contexte est vide, on injecte des données de démo pour que l'utilisateur reçoive TOUJOURS quelque chose lors du test
+                const finalContext = (context && (context.bricks.length > 0 || context.searches.length > 0))
+                    ? context
+                    : {
+                        indexJSON: { vibre: "Chaos de test", trajectoire: "Dépannage en cours" },
+                        bricks: [{ title: "Brique de Test", content: "Ceci est une pépite générée car ta base est vide pour l'instant (ou en cours de peuplement)." }],
+                        searches: ["/recherche test de résilience"]
+                    };
 
-                    await resend.emails.send({
-                        from: "Antigravity <noreply@resend.dev>",
-                        to: process.env.USER_EMAIL || "jpp180866@gmail.com",
-                        subject: `🧪 TEST : La Chronique de la Substance`,
-                        html: `<div style="font-family: sans-serif;">${aiResponse.data.choices[0]?.message?.content}</div>`
-                    });
-                    logger.info("[TEST] Recap email sent");
-                } else {
-                    logger.warn("[TEST] Not enough content for recap", context);
-                }
-            } catch (e) {
-                logger.error("[TEST] Recap failed", e);
+                const resend = new Resend(process.env.RESEND_API_KEY);
+                const recapPrompt = `TU ES L'ARCHIVISTE DE LA SUBSTANCE (NIV). Récapitulatif HSP/TDAH. Données : ${JSON.stringify(finalContext)}. Format HTML chuinké.`;
+                const aiResponse = await axios.post("https://api.inceptionlabs.ai/v1/chat/completions", {
+                    model: "mercury-2",
+                    messages: [{ role: "system", content: recapPrompt }],
+                    max_tokens: 3000,
+                    reasoning_effort: "medium"
+                }, { headers: { "Authorization": `Bearer ${process.env.INCEPTION_API_KEY}` } });
+
+                const now = new Date();
+                const dateStr = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear().toString().slice(-2)}`;
+                const lastWeek = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                const lastWeekStr = `${lastWeek.getDate().toString().padStart(2, '0')}/${(lastWeek.getMonth() + 1).toString().padStart(2, '0')}/${lastWeek.getFullYear().toString().slice(-2)}`;
+
+                const emailRes = await resend.emails.send({
+                    from: "Antigravity <onboarding@resend.dev>",
+                    to: process.env.USER_EMAIL || "jpp180866@gmail.com",
+                    subject: `🧪 Récapitulatif de la semaine du ${lastWeekStr} au ${dateStr}`,
+                    html: `<div style="font-family: sans-serif;">${aiResponse.data.choices[0]?.message?.content}</div>`
+                });
+                logger.info("[TEST] Recap email sent manually", { emailId: emailRes.data?.id });
+            } catch (e: any) {
+                logger.error("[TEST] Recap failed", { error: e.message, data: e.response?.data });
             }
 
             await lockRef.update({ status: "done" });
@@ -441,10 +451,15 @@ export const weeklyRecap = onSchedule({
 
             const emailHtml = aiResponse.data.choices[0]?.message?.content || "Échec de la génération.";
 
+            const now = new Date();
+            const dateStr = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear().toString().slice(-2)}`;
+            const lastWeek = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+            const lastWeekStr = `${lastWeek.getDate().toString().padStart(2, '0')}/${(lastWeek.getMonth() + 1).toString().padStart(2, '0')}/${lastWeek.getFullYear().toString().slice(-2)}`;
+
             await resend.emails.send({
-                from: "Antigravity <noreply@resend.dev>",
+                from: "Antigravity <onboarding@resend.dev>",
                 to: userEmail,
-                subject: `🌪️ La Chronique de la Substance (${new Date().toLocaleDateString()})`,
+                subject: `🌪️ Récapitulatif de la semaine du ${lastWeekStr} au ${dateStr}`,
                 html: `<div style="font-family: sans-serif; line-height: 1.6; color: #333;">${emailHtml}</div>`
             });
 
