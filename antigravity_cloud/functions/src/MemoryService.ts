@@ -93,10 +93,14 @@ export class MemoryService {
             const messages: Message[] = [];
             snapshot.forEach(doc => {
                 const data = doc.data();
-                messages.push({
-                    role: data.role,
-                    content: data.content
-                });
+                // Phase 4 : Filtrage logistique (ne pas traîner les commandes techniques dans l'historique long)
+                const isLogistics = data.content.startsWith("/") || data.role === "system";
+                if (!isLogistics) {
+                    messages.push({
+                        role: data.role,
+                        content: data.content
+                    });
+                }
             });
 
             return messages.reverse();
@@ -308,14 +312,18 @@ export class MemoryService {
 
             // Détection de "Substance" - Est-ce que ça vaut le coup de synthétiser ?
             const checkResponse = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-                model: "google/gemini-2.0-flash-001",
+                model: "google/gemini-2.0-flash-lite-001", // OPTIMISATION : Lite pour la validation simple
                 messages: [
                     { role: "system", content: "Réponds uniquement par OUI ou NON. Est-ce que cet échange contient des informations structurantes, des décisions ou des concepts profonds qui méritent d'être indexés ?" },
                     { role: "user", content: contentToSummarize.slice(-3000) } // On regarde la fin de l'échange
                 ],
                 max_tokens: 5
             }, {
-                headers: { "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}` },
+                headers: {
+                    "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+                    "HTTP-Referer": "https://antigravity-brain.web.app", // Pour OpenRouter
+                    "X-Title": "Antigravity Brain"
+                },
                 timeout: 10000
             });
 
@@ -336,14 +344,17 @@ Produis un INDEX JSON strict :
 Sois percutant, chirurgical, humain.`;
 
             const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-                model: "anthropic/claude-3-haiku",
+                model: "deepseek/deepseek-chat", // OPTIMISATION Phase 3 : DeepSeek est plus performant et moins cher que Haiku pour la synthèse
                 messages: [
                     { role: "system", content: nivSystemPrompt },
                     { role: "user", content: contentToSummarize }
                 ],
                 response_format: { type: "json_object" }
             }, {
-                headers: { "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}` }
+                headers: {
+                    "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+                    "X-CTC-Cache": "true" // Tentative d'activation du cache si supporté
+                }
             });
 
             const summaryObj = JSON.parse(response.data.choices[0].message.content);
@@ -384,14 +395,17 @@ Si rien ne mérite d'être sauvé, renvoie une liste vide.
 PAS DE BLA-BLA. JUSTE LE JSON.`;
 
             const response = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-                model: "anthropic/claude-3-haiku",
+                model: "deepseek/deepseek-chat", // OPTIMISATION Phase 3
                 messages: [
                     { role: "system", content: nivExtractorPrompt },
                     { role: "user", content: content.slice(-5000) } // Focus sur la fin de l'échange
                 ],
                 response_format: { type: "json_object" }
             }, {
-                headers: { "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}` }
+                headers: {
+                    "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+                    "X-CTC-Cache": "true"
+                }
             });
 
             const data = JSON.parse(response.data.choices[0].message.content);

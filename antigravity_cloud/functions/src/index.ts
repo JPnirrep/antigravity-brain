@@ -293,7 +293,14 @@ export const antigravityBot = onRequest({
                 model: "google/gemini-2.0-flash-lite-001", // OPTIMISATION: Modèle Lite pour le routage
                 messages: [{ role: "system", content: "Routeur Antigravity. Réponds uniquement : REASONING, CREATIVE, ou FAST." }, { role: "user", content: text }],
                 max_tokens: 10
-            }, { headers: { "Authorization": `Bearer ${OPENROUTER_API_KEY}` }, timeout: 15000 }),
+            }, {
+                headers: {
+                    "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+                    "HTTP-Referer": "https://antigravity-brain.web.app",
+                    "X-Title": "Antigravity Brain"
+                },
+                timeout: 15000
+            }),
             MemoryService.getRecentHistory(chatId, 12),
             MemoryService.getContextSummary(chatId)
         ]);
@@ -355,7 +362,15 @@ export const antigravityBot = onRequest({
             max_tokens: maxTokens,
             ...apiOptions
         }, {
-            headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
+            headers: {
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "application/json",
+                ...(url.includes("openrouter") ? {
+                    "HTTP-Referer": "https://antigravity-brain.web.app",
+                    "X-Title": "Antigravity Brain",
+                    "X-CTC-Cache": "true"
+                } : {})
+            },
             timeout: 180000 // 3 minutes max pour Mercury-2
         });
 
