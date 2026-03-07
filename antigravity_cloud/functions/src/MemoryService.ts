@@ -17,6 +17,46 @@ export interface Message {
 export class MemoryService {
 
     /**
+     * Knowledge Router (KLEIA-UP)
+     * Analyse la requête et injecte les fragments de connaissance pertinents.
+     * Approche statique pour une performance maximale et coût 0.
+     */
+    static getRelevantKnowledge(text: string): string {
+        try {
+            const query = text.toLowerCase();
+            const indexMap: Record<string, { keywords: string[], content: string }> = {
+                "identity": {
+                    keywords: ["forces", "via", "valeurs", "sens", "motivation"],
+                    content: "Forces signatures, VIA Character, Récit de réussite (Sources L1, L5). Focus: Alignement identitaire."
+                },
+                "stress_logic": {
+                    keywords: ["drivers", "process_com", "peurs", "echec", "anxiete", "stress"],
+                    content: "Auto-diagnostic Drivers, Profil de stress, Phrases Antidotes. Focus: Permissions mentales sous pression."
+                },
+                "physical_performance": {
+                    keywords: ["ancrage", "respiration", "non-verbal", "regard", "presence", "corps"],
+                    content: "Respiration abdominale, Ancrage (Arbre), Verticalité, Power Posing. Focus: Stabilité physique et nerveuse."
+                },
+                "content_structure": {
+                    keywords: ["storytelling", "conference", "pitch", "plan", "accroche", "discours"],
+                    content: "Le Golden Circle, Structure 3 actes, Méthode DESC. Focus: Architecture narrative et impact du message."
+                }
+            };
+
+            let matchedContent = "";
+            for (const [id, data] of Object.entries(indexMap)) {
+                if (data.keywords.some(k => query.includes(k))) {
+                    matchedContent += `\n- [Ref: ${id}] : ${data.content}`;
+                }
+            }
+
+            return matchedContent ? `\n### SUBSTANCE KLEIA-UP (Fragments Activés) :${matchedContent}\n` : "";
+        } catch (e) {
+            return "";
+        }
+    }
+
+    /**
      * Calcule l'embedding (vecteur) d'un texte via OpenAI/OpenRouter.
      * Modèle : text-embedding-3-small (Ultra low cost : 0.02$ / 1M tokens)
      */

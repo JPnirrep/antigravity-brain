@@ -286,11 +286,11 @@ export const antigravityBot = onRequest({
         }
 
         // --- 1. RÉSONANCE & ROUTING ---
-        logger.info("[ROUTING] Calling intent detection...");
+        logger.info("[ROUTING] Calling intent detection (Lite version)...");
         const [memories, routingResponse, history, indexJSON] = await Promise.all([
             MemoryService.findSimilarBricks(text),
             axios.post("https://openrouter.ai/api/v1/chat/completions", {
-                model: "google/gemini-2.0-flash-001",
+                model: "google/gemini-2.0-flash-lite-001", // OPTIMISATION: Modèle Lite pour le routage
                 messages: [{ role: "system", content: "Routeur Antigravity. Réponds uniquement : REASONING, CREATIVE, ou FAST." }, { role: "user", content: text }],
                 max_tokens: 10
             }, { headers: { "Authorization": `Bearer ${OPENROUTER_API_KEY}` }, timeout: 15000 }),
@@ -299,7 +299,21 @@ export const antigravityBot = onRequest({
         ]);
 
         const intent = routingResponse.data.choices[0]?.message?.content?.trim().toUpperCase() || "FAST";
-        logger.info(`[ROUTING] Intent: ${intent} | Memories: ${memories.length}`);
+        const kleiaKnowledge = MemoryService.getRelevantKnowledge(text); // KNOWLEDGE ROUTER
+        logger.info(`[ROUTING] Intent: ${intent} | Memories: ${memories.length} | KLEIA: ${!!kleiaKnowledge}`);
+
+        // --- CONTEXT SHAVING (Optimisation Tokens sur sessions longues) ---
+        let processedMessages = history;
+        if (history.length >= 10 && indexJSON) {
+            // On garde les 3 derniers messages pour la continuité immédiate, 
+            // et on remplace le reste par l'Index JSON (Substance condensée).
+            const recent = history.slice(-3);
+            processedMessages = [
+                { role: "system", content: `CONTEXTE_MÉMOIRE_COMPRESSÉ (Palier 2) : ${JSON.stringify(indexJSON)}` },
+                ...recent
+            ];
+            logger.info(`[SHAVING] History shaved: ${history.length} -> ${processedMessages.length} items`);
+        }
 
         // --- 2. CONFIGURATION DU MODÈLE ---
         let model = "google/gemini-2.0-flash-001";
@@ -308,7 +322,7 @@ export const antigravityBot = onRequest({
         let apiOptions: any = { temperature: 0.7 };
 
         const memoryContext = memories.length > 0 ? `\n### RÉSONANCE_MÉMOIRE :\n${memories.map(m => `- ${m.title}: ${m.content}`).join("\n")}` : "";
-        let systemPrompt = `Antigravity Engine | Mode: ${intent}\n${memoryContext}\n### INDEX: ${JSON.stringify(indexJSON)}`;
+        let systemPrompt = `Antigravity Engine | Mode: ${intent}\n${memoryContext}\n${kleiaKnowledge}\n### INDEX: ${JSON.stringify(indexJSON)}`;
 
         if (prefs.mode === "niv") {
             model = "mercury-2";
@@ -335,7 +349,7 @@ export const antigravityBot = onRequest({
             model: model,
             messages: [
                 { role: "system", content: systemPrompt },
-                ...history,
+                ...processedMessages,
                 { role: "user", content: text } // FIX: Ajout du message actuel
             ],
             max_tokens: maxTokens,
