@@ -21,6 +21,24 @@ export class MemoryService {
      * Analyse la requête et injecte les fragments de connaissance pertinents.
      * Approche statique pour une performance maximale et coût 0.
      */
+    static tryParseJSON(text: string): any {
+        try {
+            // Tentative de parsing direct
+            return JSON.parse(text);
+        } catch (e) {
+            // Nettoyage des backticks et du texte parasite
+            const match = text.match(/\{[\s\S]*\}/);
+            if (match) {
+                try {
+                    return JSON.parse(match[0]);
+                } catch (e2) {
+                    throw new Error("Impossible de parser le JSON même après nettoyage");
+                }
+            }
+            throw e;
+        }
+    }
+
     static getRelevantKnowledge(text: string): string {
         try {
             const query = text.toLowerCase();
@@ -357,7 +375,7 @@ Sois percutant, chirurgical, humain.`;
                 }
             });
 
-            const summaryObj = JSON.parse(response.data.choices[0].message.content);
+            const summaryObj = this.tryParseJSON(response.data.choices[0].message.content);
             await this.updateContextSummary(chatId, summaryObj);
             logger.info(`[MEMORY] Index JSON mis à jour pour ${chatId}`);
 
@@ -408,7 +426,7 @@ PAS DE BLA-BLA. JUSTE LE JSON.`;
                 }
             });
 
-            const data = JSON.parse(response.data.choices[0].message.content);
+            const data = this.tryParseJSON(response.data.choices[0].message.content);
             const bricks = data.bricks || [];
 
             for (const brick of bricks) {
@@ -434,7 +452,7 @@ PAS DE BLA-BLA. JUSTE LE JSON.`;
                 title,
                 content,
                 tags,
-                embedding: (admin.firestore as any).VectorValue.fromArray(embedding),
+                embedding: admin.firestore.FieldValue.vector(embedding),
                 source: "niv_extraction",
                 createdAt: admin.firestore.FieldValue.serverTimestamp()
             });

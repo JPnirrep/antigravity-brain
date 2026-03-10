@@ -1,0 +1,7 @@
+{
+    "agent_role": "KLEIA-UP Speaking Expert",
+    "memory_management": "Firebase_Indexed",
+    "optimization_level": "Token_Savings_Max",
+    "evolution_bridge": true,
+    "last_audit_date": "2026-03-05"
+}

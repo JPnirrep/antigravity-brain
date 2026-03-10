@@ -1,0 +1,7 @@
+resource_bridge:
+  drive_root: "https://drive.google.com/drive/folders/1K8OBzFvIQ7Rzajzis-jOjyHSUhEzO1rK"
+  mapping:
+    doc_001: {title: "Motivation & Forces", file_ref: "L1_Forces_Motivation.pdf"}
+    doc_002: {title: "Mécanismes de Stress", file_ref: "L2_Drivers_Stress.pdf"}
+    doc_003: {title: "Le Corps de l'Orateur", file_ref: "L3_Presence_L4_NonVerbal.pdf"}
+    doc_004: {title: "Ingénierie de Contenu", file_ref: "L5_Construction_Conference.pdf"}

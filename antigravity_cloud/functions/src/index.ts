@@ -5,6 +5,7 @@ import axios from "axios";
 import * as dotenv from "dotenv";
 import * as admin from "firebase-admin";
 import { MemoryService, Message } from "./MemoryService";
+import { AudioService } from "./AudioService";
 import { Resend } from "resend";
 
 dotenv.config();
@@ -97,7 +98,32 @@ export const antigravityBot = onRequest({
         }
 
         const chatId = message.chat.id.toString();
-        const text = (message.text || "").trim();
+        let text = (message.text || "").trim();
+
+        // --- GESTION AUDIO / VOICE ---
+        if (!text && (message.voice || message.audio)) {
+            const fileId = message.voice ? message.voice.file_id : message.audio.file_id;
+            logger.info(`[AUDIO] Voice/Audio message detected. fileId: ${fileId}`);
+
+            // Envoyer un petit message de patience (UX)
+            await axios.post(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                chat_id: chatId, text: "🎤 **Transcription audio en cours (Parakeet V3)...**", parse_mode: "Markdown"
+            });
+
+            try {
+                text = await AudioService.transcribeTelegramAudio(fileId);
+                logger.info(`[AUDIO] Transcribed text: ${text.slice(0, 100)}...`);
+
+                // On notifie que la transcription est terminée
+                await axios.post(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                    chat_id: chatId, text: `📝 **Transcription terminée :**\n_"${text.slice(0, 200)}${text.length > 200 ? '...' : ''}"_`, parse_mode: "Markdown"
+                });
+            } catch (audioError: any) {
+                logger.error("[AUDIO] Transcription error", audioError.message);
+                text = "Échec de la transcription audio.";
+            }
+        }
+
         if (!text) {
             res.status(200).send("OK");
             return;

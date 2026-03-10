@@ -1,0 +1,1006 @@
+﻿2026-03-05T18:50:10.482779Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un r"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:318:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-05T18:50:10.486428Z I antigravitybot: [DONE] update 881069985 processed in 41631ms
+2026-03-05T18:50:36.878179Z I antigravitybot: 
+2026-03-05T18:50:37.019068Z I antigravitybot: 
+2026-03-05T18:50:37.378348Z I antigravitybot: [START] Chat: 6722033496 | Update: 881069987 | Text: /testrecap
+2026-03-05T18:50:37.540940Z I antigravitybot: [PREFS] Mode: standard
+2026-03-05T18:50:37.541063Z I antigravitybot: [COMMAND] /testrecap triggered
+2026-03-05T18:50:42.389794Z I antigravitybot: {"message":"[TEST] Recap email sent manually","emailId":"c43d4243-62d3-4c5f-995e-6ab37c3e0483"}
+2026-03-05T18:57:01.246123347Z N antigravityBot: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","authenticationInfo":{"principalEmail":"jpp180866@gmail.com","principalSubject":"user:jpp180866@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"callerIp":"37.65.173.91","callerSuppliedUserAgent":"FirebaseCLI/15.4.0 agent-name/antigravity,gzip(gfe),gzip(gfe)","requestAttributes":{"time":"2026-03-05T18:57:00.422726574Z","auth":{}},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","authorizationInfo":[{"resource":"projects/antigravity-brain-79792/locations/us-central1/functions/antigravityBot","permission":"cloudfunctions.functions.update","granted":true,"resourceAttributes":{"service":"cloudfunctions.googleapis.com","name":"projects/antigravity-brain-79792/locations/us-central1/functions/antigravityBot","type":"cloudfunctions.googleapis.com/Function"},"permissionType":"ADMIN_WRITE"}],"resourceName":"projects/antigravity-brain-79792/locations/us-central1/functions/antigravityBot","request":{"update_mask":{"paths":["name","build_config.runtime","build_config.entry_point","build_config.source.storage_source.bucket","build_config.source.storage_source.object","build_config.environment_variables","build_config.source_token","service_config.environment_variables","service_config.ingress_settings","service_config.timeout_seconds","service_config.service_account_email","service_config.available_memory","service_config.min_instance_count","service_config.max_instance_count","service_config.max_instance_request_concurrency","service_config.available_cpu","service_config.vpc_connector","service_config.vpc_connector_egress_settings","labels"]},"function":{"build_config":{"entry_point":"antigravityBot","source":{},"runtime":"nodejs20"},"name":"projects/antigravity-brain-79792/locations/us-central1/functions/antigravityBot","labels":{"firebase-functions-hash":"65035be4f24a6cd3f19e113847ca685f48e8dd81","deployment-tool":"cli-firebase"},"service_config":{"timeout_seconds":300,"available_memory":"512Mi","available_cpu":"1","max_instance_request_concurrency":80,"max_instance_count":10}},"@type":"type.googleapis.com/google.cloud.functions.v2.UpdateFunctionRequest"},"response":{"@type":"type.googleapis.com/google.longrunning.Operation"},"resourceLocation":{"currentLocations":["us-central1"]}}
+2026-03-05T18:57:54.209910666Z N weeklyRecap: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","authenticationInfo":{"principalEmail":"jpp180866@gmail.com","principalSubject":"user:jpp180866@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"callerIp":"37.65.173.91","callerSuppliedUserAgent":"FirebaseCLI/15.4.0 agent-name/antigravity,gzip(gfe),gzip(gfe)","requestAttributes":{"time":"2026-03-05T18:57:53.420373288Z","auth":{}},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","authorizationInfo":[{"resource":"projects/antigravity-brain-79792/locations/us-central1/functions/weeklyRecap","permission":"cloudfunctions.functions.update","granted":true,"resourceAttributes":{"service":"cloudfunctions.googleapis.com","name":"projects/antigravity-brain-79792/locations/us-central1/functions/weeklyRecap","type":"cloudfunctions.googleapis.com/Function"},"permissionType":"ADMIN_WRITE"}],"resourceName":"projects/antigravity-brain-79792/locations/us-central1/functions/weeklyRecap","request":{"update_mask":{"paths":["name","build_config.runtime","build_config.entry_point","build_config.source.storage_source.bucket","build_config.source.storage_source.object","build_config.environment_variables","build_config.source_token","service_config.environment_variables","service_config.ingress_settings","service_config.timeout_seconds","service_config.service_account_email","service_config.available_memory","service_config.min_instance_count","service_config.max_instance_count","service_config.max_instance_request_concurrency","service_config.available_cpu","service_config.vpc_connector","service_config.vpc_connector_egress_settings","labels"]},"function":{"build_config":{"source_token":"Clhwcm9qZWN0cy8xMDU1Nzg2ODk0NzI0L2xvY2F0aW9ucy91cy1jZW50cmFsMS9idWlsZHMvNGRkYTdhMWItZTYwMC00YmRiLWIzYzYtMzY0ZWI2ZjMzYWQyEoMBdXMtY2VudHJhbDEtZG9ja2VyLnBrZy5kZXYvYW50aWdyYXZpdHktYnJhaW4tNzk3OTIvZ2NmLWFydGlmYWN0cy9hbnRpZ3Jhdml0eS0tYnJhaW4tLTc5NzkyX191cy0tY2VudHJhbDFfX2FudGlncmF2aXR5X2JvdDp2ZXJzaW9uXzEYhIu2jt0eIk9wcm9qZWN0cy9hbnRpZ3Jhdml0eS1icmFpbi03OTc5Mi9sb2NhdGlvbnMvdXMtY2VudHJhbDEvZnVuY3Rpb25zL2FudGlncmF2aXR5Qm90KgsIrKSnzQYQqN/fIzIIbm9kZWpzMjA6dgojZ2NyLmlvL2dhZS1ydW50aW1lcy9ub2RlanMyMDpzdGFibGUST3VzLWNlbnRyYWwxLWRvY2tlci5wa2cuZGV2L3NlcnZlcmxlc3MtcnVudGltZXMvZ29vZ2xlLTIyLWZ1bGwvcnVudGltZXMvbm9kZWpzMjBAAQ==","entry_point":"weeklyRecap","source":{},"runtime":"nodejs20"},"labels":{"firebase-functions-hash":"65035be4f24a6cd3f19e113847ca685f48e8dd81","deployment-scheduled":"true","deployment-tool":"cli-firebase"},"service_config":{"available_cpu":"1","available_memory":"512Mi","timeout_seconds":300,"max_instance_request_concurrency":80},"name":"projects/antigravity-brain-79792/locations/us-central1/functions/weeklyRecap"},"@type":"type.googleapis.com/google.cloud.functions.v2.UpdateFunctionRequest"},"response":{"@type":"type.googleapis.com/google.longrunning.Operation"},"resourceLocation":{"currentLocations":["us-central1"]}}
+2026-03-05T18:58:09.050996Z I weeklyrecap: Starting new instance. Reason: DEPLOYMENT_ROLLOUT - Instance started due to traffic shifting between revisions due to deployment, traffic split adjustment, or deployment health check.
+2026-03-05T18:58:09.403722Z I antigravitybot: Starting new instance. Reason: DEPLOYMENT_ROLLOUT - Instance started due to traffic shifting between revisions due to deployment, traffic split adjustment, or deployment health check.
+2026-03-05T18:58:11.108209Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-05T18:58:11.108850Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-05T18:58:11.121927Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-05T18:58:11.215582Z I weeklyrecap: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-05T18:58:11.216369Z I weeklyrecap: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-05T18:58:11.228078Z I weeklyrecap: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-05T18:58:13.128468383Z N antigravityBot: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","status":{},"authenticationInfo":{"principalEmail":"jpp180866@gmail.com","principalSubject":"user:jpp180866@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"requestAttributes":{},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","resourceName":"projects/antigravity-brain-79792/locations/us-central1/functions/antigravityBot","response":{"satisfiesPzi":true,"buildConfig":{"runtime":"nodejs20","entryPoint":"antigravityBot","source":{},"dockerRegistry":"ARTIFACT_REGISTRY","dockerRepository":"projects/antigravity-brain-79792/locations/us-central1/repositories/gcf-artifacts","serviceAccount":"projects/antigravity-brain-79792/serviceAccounts/1055786894724-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"serviceAccountEmail":"1055786894724-compute@developer.gserviceaccount.com","allTrafficOnLatestRevision":true,"availableCpu":"1","ingressSettings":"ALLOW_ALL","uri":"https://antigravitybot-jreyvf3jeq-uc.a.run.app","maxInstanceRequestConcurrency":80,"revision":"antigravitybot-00022-puc","availableMemory":"512Mi","maxInstanceCount":10,"timeoutSeconds":300},"state":"ACTIVE","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"65035be4f24a6cd3f19e113847ca685f48e8dd81"},"environment":"GEN_2","updateTime":"2026-03-05T18:57:01.234521808Z","@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/antigravity-brain-79792/locations/us-central1/functions/antigravityBot","url":"https://us-central1-antigravity-brain-79792.cloudfunctions.net/antigravityBot","createTime":"2026-03-04T12:29:48.532044033Z"},"resourceLocation":{"currentLocations":["us-central1"]}}
+2026-03-05T18:58:13.167103648Z N weeklyRecap: {"@type":"type.googleapis.com/google.cloud.audit.AuditLog","status":{},"authenticationInfo":{"principalEmail":"jpp180866@gmail.com","principalSubject":"user:jpp180866@gmail.com","oauthInfo":{"oauthClientId":"563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com"}},"requestMetadata":{"requestAttributes":{},"destinationAttributes":{}},"serviceName":"cloudfunctions.googleapis.com","methodName":"google.cloud.functions.v2.FunctionService.UpdateFunction","resourceName":"projects/antigravity-brain-79792/locations/us-central1/functions/weeklyRecap","response":{"environment":"GEN_2","buildConfig":{"serviceAccount":"projects/antigravity-brain-79792/serviceAccounts/1055786894724-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{},"runtime":"nodejs20","entryPoint":"weeklyRecap","source":{},"dockerRegistry":"ARTIFACT_REGISTRY","dockerRepository":"projects/antigravity-brain-79792/locations/us-central1/repositories/gcf-artifacts"},"state":"ACTIVE","url":"https://us-central1-antigravity-brain-79792.cloudfunctions.net/weeklyRecap","name":"projects/antigravity-brain-79792/locations/us-central1/functions/weeklyRecap","@type":"type.googleapis.com/google.cloud.functions.v2.Function","updateTime":"2026-03-05T18:57:54.198386697Z","labels":{"firebase-functions-hash":"65035be4f24a6cd3f19e113847ca685f48e8dd81","deployment-scheduled":"true","deployment-tool":"cli-firebase"},"createTime":"2026-03-05T16:57:31.032637536Z","satisfiesPzi":true,"serviceConfig":{"serviceAccountEmail":"1055786894724-compute@developer.gserviceaccount.com","revision":"weeklyrecap-00007-roq","timeoutSeconds":300,"availableCpu":"1","ingressSettings":"ALLOW_ALL","allTrafficOnLatestRevision":true,"availableMemory":"512Mi","maxInstanceRequestConcurrency":80,"maxInstanceCount":20,"uri":"https://weeklyrecap-jreyvf3jeq-uc.a.run.app"}},"resourceLocation":{"currentLocations":["us-central1"]}}
+2026-03-05T19:16:33.700033Z I antigravitybot: 
+2026-03-05T19:16:33.711036Z I antigravitybot: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-05T19:16:34.686112Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-05T19:16:34.687007Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-05T19:16:34.699660Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-05T19:16:34.841549Z I antigravitybot: 
+2026-03-05T19:16:35.733068Z I antigravitybot: [START] Chat: 6722033496 | Update: 881069989 | Text: Je veux que tu me fasses un topo bref de ce depot:
+2026-03-05T19:16:35.927658Z I antigravitybot: [PREFS] Mode: standard
+2026-03-05T19:16:35.927763Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-05T19:16:36.525962Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-05T19:16:36.526120Z I antigravitybot: [ROUTING] Intent: FAST | Memories: 0
+2026-03-05T19:16:36.526353Z I antigravitybot: [LLM] Calling google/gemini-2.0-flash-001...
+2026-03-05T19:16:41.294822Z I antigravitybot: [TELEGRAM] Sending 2337 chars...
+2026-03-05T19:16:41.662621Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-05T19:16:42.221744Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-05T19:17:10.212609Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un b"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-05T19:17:10.212917Z I antigravitybot: [DONE] update 881069989 processed in 35368ms
+2026-03-05T19:18:33.111190Z I antigravitybot: 
+2026-03-05T19:18:33.401219Z I antigravitybot: 
+2026-03-05T19:18:33.713302Z I antigravitybot: [START] Chat: 6722033496 | Update: 881069991 | Text: Envoie ce depot dans le système pour intégration d
+2026-03-05T19:18:33.849965Z I antigravitybot: [PREFS] Mode: standard
+2026-03-05T19:18:33.850100Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-05T19:18:34.419990Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-05T19:18:35.026843Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-05T19:18:35.026933Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-05T19:18:39.588522Z I antigravitybot: [TELEGRAM] Sending 5408 chars...
+2026-03-05T19:18:39.960028Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-05T19:18:41.810518Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-05T19:18:49.412812Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'D', "D'accord, "... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-05T19:18:49.412927Z I antigravitybot: [DONE] update 881069991 processed in 16007ms
+2026-03-05T19:22:46.881482Z I antigravitybot: 
+2026-03-05T19:22:47.134662Z I antigravitybot: 
+2026-03-05T19:22:48.034662Z I antigravitybot: [START] Chat: 6722033496 | Update: 881069993 | Text: https://youtu.be/oFDm6tHLN3k?is=CkVNejUs2Utq2KgR
+L
+2026-03-05T19:22:48.502510Z I antigravitybot: [PREFS] Mode: standard
+2026-03-05T19:22:48.502590Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-05T19:22:49.174839Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-05T19:22:49.226500Z I antigravitybot: [ROUTING] Intent: FAST | Memories: 0
+2026-03-05T19:22:49.226601Z I antigravitybot: [LLM] Calling google/gemini-2.0-flash-001...
+2026-03-05T19:23:01.904600Z I antigravitybot: [TELEGRAM] Sending 5078 chars...
+2026-03-05T19:23:02.271313Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-05T19:23:04.134957Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-05T19:23:47.135044Z I antigravitybot: 
+2026-03-05T19:23:47.304525Z I antigravitybot: [LOCK] Skip update 881069993 (already processing)
+2026-03-05T19:23:50.604222Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici une "... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-05T19:23:50.604402Z I antigravitybot: [DONE] update 881069993 processed in 63464ms
+2026-03-05T22:27:08.537047Z I antigravitybot: 
+2026-03-05T22:27:08.581417Z I antigravitybot: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-05T22:27:09.562202Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-05T22:27:09.562736Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-05T22:27:09.574944Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-05T22:27:09.731466Z I antigravitybot: 
+2026-03-05T22:27:10.975572Z I antigravitybot: [START] Chat: 6722033496 | Update: 881069995 | Text: https://www.clawdi.ai/privacy
+Je veux une analyse 
+2026-03-05T22:27:11.126028Z I antigravitybot: [PREFS] Mode: standard
+2026-03-05T22:27:11.126134Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-05T22:27:11.877267Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-05T22:27:11.877502Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-05T22:27:11.877787Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-05T22:27:21.094641Z I antigravitybot: [TELEGRAM] Sending 12667 chars...
+2026-03-05T22:27:24.680623Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-05T22:27:52.403874Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un b"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-05T22:27:52.403949Z I antigravitybot: [DONE] update 881069995 processed in 42668ms
+2026-03-05T22:28:32.759750Z I antigravitybot: 
+2026-03-05T22:28:32.997594Z I antigravitybot: 
+2026-03-05T22:28:33.699127Z I antigravitybot: [START] Chat: 6722033496 | Update: 881069997 | Text: Remonte un petit peu pour voir quels sont les fonc
+2026-03-05T22:28:33.841116Z I antigravitybot: [PREFS] Mode: standard
+2026-03-05T22:28:33.841221Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-05T22:28:34.523248Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-05T22:28:34.523454Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-05T22:28:34.523748Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-05T22:28:39.613779Z I antigravitybot: [TELEGRAM] Sending 5436 chars...
+2026-03-05T22:28:41.659779Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-05T22:29:09.351401Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un r"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-05T22:29:09.351519Z I antigravitybot: [DONE] update 881069997 processed in 36349ms
+2026-03-05T22:29:56.593553Z I antigravitybot: 
+2026-03-05T22:29:56.813869Z I antigravitybot: 
+2026-03-05T22:29:57.486652Z I antigravitybot: [START] Chat: 6722033496 | Update: 881069999 | Text: Dans l'offre gratuite j'ai besoin de connaître ce 
+2026-03-05T22:29:57.625280Z I antigravitybot: [PREFS] Mode: standard
+2026-03-05T22:29:57.625527Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-05T22:29:58.325115Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-05T22:29:58.325218Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-05T22:29:58.325323Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-05T22:30:05.572794Z I antigravitybot: [TELEGRAM] Sending 7880 chars...
+2026-03-05T22:30:07.661630Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-05T22:30:56.816107Z I antigravitybot: 
+2026-03-05T22:30:56.969088Z I antigravitybot: [LOCK] Skip update 881069999 (already processing)
+2026-03-05T22:30:57.078798Z I antigravitybot: 
+2026-03-05T22:30:57.191972Z I antigravitybot: 
+2026-03-05T22:30:57.619245Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070001 | Text: Bah, en te basant sur ton architecture. Et tout le
+2026-03-05T22:30:57.747374Z I antigravitybot: [PREFS] Mode: standard
+2026-03-05T22:30:57.747470Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-05T22:30:58.510225Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-05T22:30:58.598761Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-05T22:30:58.598867Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-05T22:31:00.062111Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un r"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-05T22:31:00.062234Z I antigravitybot: [DONE] update 881069999 processed in 63244ms
+2026-03-05T22:31:06.076748Z I antigravitybot: [TELEGRAM] Sending 8014 chars...
+2026-03-05T22:31:08.952186Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-05T22:31:57.207620Z I antigravitybot: 
+2026-03-05T22:31:57.358798Z I antigravitybot: [LOCK] Skip update 881070001 (already processing)
+2026-03-05T22:31:59.337503Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'B', "Based on t"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-05T22:31:59.337616Z I antigravitybot: [DONE] update 881070001 processed in 62142ms
+2026-03-06T07:23:18.218037Z I antigravitybot: 
+2026-03-06T07:23:18.239927Z I antigravitybot: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-06T07:23:19.182128Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-06T07:23:19.182651Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-06T07:23:19.194124Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-06T07:23:19.421695Z I antigravitybot: 
+2026-03-06T07:23:20.633383Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070003 | Text: Formation sur le leadership et l'affirmation de so
+2026-03-06T07:23:20.798551Z I antigravitybot: [PREFS] Mode: standard
+2026-03-06T07:23:20.798664Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-06T07:23:21.524721Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-06T07:23:21.537408Z I antigravitybot: [ROUTING] Intent: RAISONNEMENT | Memories: 0
+2026-03-06T07:23:21.537552Z I antigravitybot: [LLM] Calling google/gemini-2.0-flash-001...
+2026-03-06T07:23:33.177379Z I antigravitybot: [TELEGRAM] Sending 5981 chars...
+2026-03-06T07:23:34.200095Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-06T07:23:35.985798Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-06T07:23:38.492804Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'J', "Je vous in"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-06T07:23:38.492958Z I antigravitybot: [DONE] update 881070003 processed in 19062ms
+2026-03-06T08:21:48.138728Z I antigravitybot: 
+2026-03-06T08:21:48.154166Z I antigravitybot: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-06T08:21:49.055943Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-06T08:21:49.056570Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-06T08:21:49.067110Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-06T08:21:49.219267Z I antigravitybot: 
+2026-03-06T08:21:50.577766Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070005 | Text: https://www.linkedin.com/posts/shubhamsaboo_day5-a
+2026-03-06T08:21:51.039760Z I antigravitybot: [PREFS] Mode: standard
+2026-03-06T08:21:51.039899Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-06T08:21:51.752092Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-06T08:21:51.849151Z I antigravitybot: [ROUTING] Intent: FAST | Memories: 0
+2026-03-06T08:21:51.849291Z I antigravitybot: [LLM] Calling google/gemini-2.0-flash-001...
+2026-03-06T08:21:58.174193Z I antigravitybot: [TELEGRAM] Sending 3179 chars...
+2026-03-06T08:21:58.542262Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-06T08:21:59.405536Z I antigravitybot: [DONE] update 881070005 processed in 10182ms
+2026-03-06T08:23:10.790306Z I antigravitybot: 
+2026-03-06T08:23:11.057882Z I antigravitybot: 
+2026-03-06T08:23:11.756117Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070007 | Text: Oui, tu envoies ça sur antigravity grain, donc sur
+2026-03-06T08:23:11.925818Z I antigravitybot: [PREFS] Mode: standard
+2026-03-06T08:23:11.925885Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-06T08:23:12.637300Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-06T08:23:12.637441Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-06T08:23:12.637539Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-06T08:23:21.484212Z I antigravitybot: [TELEGRAM] Sending 11381 chars...
+2026-03-06T08:23:22.557229Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-06T08:23:25.143380Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-06T08:23:33.224363Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'D', "Désolé, je"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-06T08:23:33.224485Z I antigravitybot: [DONE] update 881070007 processed in 22162ms
+2026-03-06T08:35:23.176972Z I antigravitybot: 
+2026-03-06T08:35:23.725635Z I antigravitybot: 
+2026-03-06T08:35:24.453620Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070009 | Text: ZDNET: Vous souhaitez essayer OpenClaw ? NanoClaw 
+2026-03-06T08:35:24.609090Z I antigravitybot: [PREFS] Mode: standard
+2026-03-06T08:35:24.609152Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-06T08:35:25.305360Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-06T08:35:25.307552Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-06T08:35:25.307640Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-06T08:35:31.497623Z I antigravitybot: [TELEGRAM] Sending 7398 chars...
+2026-03-06T08:35:31.872213Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-06T08:35:33.986999Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-06T08:36:23.731587Z I antigravitybot: 
+2026-03-06T08:36:23.885833Z I antigravitybot: [LOCK] Skip update 881070009 (already processing)
+2026-03-06T08:36:24.124924Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici les "... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-06T08:36:24.125038Z I antigravitybot: [DONE] update 881070009 processed in 60392ms
+2026-03-06T08:36:24.241624Z I antigravitybot: 
+2026-03-06T08:36:24.382196Z I antigravitybot: 
+2026-03-06T08:36:25.057234Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070011 | Text: Je veux une installation sur vps hetzer
+2026-03-06T08:36:25.199Z I antigravitybot: [PREFS] Mode: standard
+2026-03-06T08:36:25.199080Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-06T08:36:25.895480Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-06T08:36:25.895584Z I antigravitybot: [ROUTING] Intent: RAISONNEMENT | Memories: 0
+2026-03-06T08:36:25.895773Z I antigravitybot: [LLM] Calling google/gemini-2.0-flash-001...
+2026-03-06T08:36:37.855176Z I antigravitybot: [TELEGRAM] Sending 5346 chars...
+2026-03-06T08:36:39.834711Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-06T08:37:09.869204Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voilà les "... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-06T08:37:09.869330Z I antigravitybot: [DONE] update 881070011 processed in 45482ms
+2026-03-06T12:00:58.738295Z I antigravitybot: 
+2026-03-06T12:00:58.765198Z I antigravitybot: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-06T12:00:59.805961Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-06T12:00:59.806485Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-06T12:00:59.817191Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-06T12:01:00.051771Z I antigravitybot: 
+2026-03-06T12:01:01.307066Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070013 | Text: Analyse cette source et explique comment optimiser
+2026-03-06T12:01:01.479116Z I antigravitybot: [PREFS] Mode: standard
+2026-03-06T12:01:01.479233Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-06T12:01:02.221865Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-06T12:01:02.228617Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-06T12:01:02.228766Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-06T12:01:10.661361Z I antigravitybot: [TELEGRAM] Sending 10009 chars...
+2026-03-06T12:01:11.031099Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-06T12:01:13.532682Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-06T12:01:21.120781Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici les "... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-06T12:01:21.121142Z I antigravitybot: [DONE] update 881070013 processed in 21065ms
+2026-03-06T12:17:58.729606Z I antigravitybot: 
+2026-03-06T12:17:58.736551Z I antigravitybot: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-06T12:17:59.670242Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-06T12:17:59.670765Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-06T12:17:59.681819Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-06T12:17:59.877153Z I antigravitybot: 
+2026-03-06T12:18:01.077964Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070015 | Text: Trouve le les prix les plus bas pour:Lenovo Tab Pl
+2026-03-06T12:18:01.240599Z I antigravitybot: [PREFS] Mode: standard
+2026-03-06T12:18:01.240728Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-06T12:18:01.977786Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-06T12:18:02.038438Z I antigravitybot: [ROUTING] Intent: FAST | Memories: 0
+2026-03-06T12:18:02.038624Z I antigravitybot: [LLM] Calling google/gemini-2.0-flash-001...
+2026-03-06T12:18:09.565892Z I antigravitybot: [TELEGRAM] Sending 3231 chars...
+2026-03-06T12:18:09.952727Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-06T12:18:10.695374Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-06T12:18:53.866359Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un r"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-06T12:18:53.866646Z I antigravitybot: [DONE] update 881070015 processed in 53985ms
+2026-03-07T12:38:39.120165Z I antigravitybot: 
+2026-03-07T12:38:39.152461Z I antigravitybot: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-07T12:38:40.159395Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-07T12:38:40.160247Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-07T12:38:40.169089Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-07T12:38:40.341604Z I antigravitybot: 
+2026-03-07T12:38:47.915464Z I antigravitybot: 
+2026-03-07T12:38:49.113157Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070018 | Text: L'observation selon laquelle cette approche offre 
+2026-03-07T12:38:49.303803Z I antigravitybot: [PREFS] Mode: standard
+2026-03-07T12:38:49.303980Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-07T12:38:50.158707Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-07T12:38:50.158859Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-07T12:38:50.158997Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-07T12:38:58.186269Z I antigravitybot: [TELEGRAM] Sending 12444 chars...
+2026-03-07T12:38:58.578824Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-07T12:39:01.706018Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-07T12:39:08.777042Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un r"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-07T12:39:08.777455Z I antigravitybot: [DONE] update 881070018 processed in 20857ms
+2026-03-09T08:00:00.843313Z I weeklyrecap: 
+2026-03-09T08:00:00.877227Z I weeklyrecap: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-09T08:00:03.350729Z I weeklyrecap: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-09T08:00:03.351445Z I weeklyrecap: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-09T08:00:03.369794Z I weeklyrecap: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-09T08:00:03.470266Z I weeklyrecap: [WEEKLY] Lancement du récapitulatif hebdomadaire...
+2026-03-09T08:00:06.893588Z I weeklyrecap: [WEEKLY] Pas assez de substance pour le chat 6722033496
+2026-03-09T21:55:10.192720Z I antigravitybot: 
+2026-03-09T21:55:10.295358Z I antigravitybot: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-09T21:55:12.012259Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-09T21:55:12.017933Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-09T21:55:12.026590Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-09T21:55:12.198718Z I antigravitybot: 
+2026-03-09T21:55:13.702469Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070020 | Text: https://github.com/JPnirrep/antigravity-brain
+Anal
+2026-03-09T21:55:13.885354Z I antigravitybot: [PREFS] Mode: standard
+2026-03-09T21:55:13.885537Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-09T21:55:14.619200Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-09T21:55:14.760712Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-09T21:55:14.760896Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-09T21:55:25.125547Z I antigravitybot: [TELEGRAM] Sending 12728 chars...
+2026-03-09T21:55:25.497649Z W antigravitybot: [TELEGRAM] Markdown V1 failed, falling back to plain text Request failed with status code 400
+2026-03-09T21:55:28.667418Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-09T21:55:40.359576Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un r"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-09T21:55:40.360166Z I antigravitybot: [DONE] update 881070020 processed in 28156ms
+2026-03-09T22:02:00.606265Z I antigravitybot: 
+2026-03-09T22:02:00.805798Z I antigravitybot: 
+2026-03-09T22:02:01.529730Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070022 | Text: https://github.com/JPnirrep/Kinetic-Juno
+Même trav
+2026-03-09T22:02:01.719575Z I antigravitybot: [PREFS] Mode: standard
+2026-03-09T22:02:01.719588Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-09T22:02:02.399483Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-09T22:02:02.550141Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-09T22:02:02.550302Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-09T22:02:14.897317Z I antigravitybot: [TELEGRAM] Sending 13884 chars...
+2026-03-09T22:02:20.031747Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-09T22:02:47.214928Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un r"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-09T22:02:47.215173Z I antigravitybot: [DONE] update 881070022 processed in 46404ms
+2026-03-10T06:43:46.004630Z I antigravitybot: 
+2026-03-10T06:43:46.027290Z I antigravitybot: Starting new instance. Reason: AUTOSCALING - Instance started due to configured scaling factors (e.g. CPU utilization, request throughput, etc.) or no existing capacity for current traffic.
+2026-03-10T06:43:47.120878Z I antigravitybot: [INIT] Keys Presence - TG: true, INC: true, OR: true
+2026-03-10T06:43:47.121533Z I antigravitybot: [INIT] OR Key Prefix: sk-or-v1-e...
+2026-03-10T06:43:47.134746Z I antigravitybot: Default STARTUP TCP probe succeeded after 1 attempt for container "worker" on port 8080.
+2026-03-10T06:43:47.297045Z I antigravitybot: 
+2026-03-10T06:44:55.173348Z I antigravitybot: 
+2026-03-10T06:44:56.958807Z I antigravitybot: [START] Chat: 6722033496 | Update: 881070025 | Text: Fais cetera recherche a partir des co signes du vo
+2026-03-10T06:44:57.439873Z I antigravitybot: [PREFS] Mode: standard
+2026-03-10T06:44:57.440048Z I antigravitybot: [ROUTING] Calling intent detection...
+2026-03-10T06:44:58.180349Z E antigravitybot: [RESONANCE] Échec de la recherche vectorielle Error: 9 FAILED_PRECONDITION: Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding
+    at callErrorFromStatus (/workspace/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:359:73)
+    at Object.onReceiveStatus (/workspace/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:327:181)
+    at /workspace/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)
+for call at
+    at ServiceClientImpl.makeServerStreamRequest (/workspace/node_modules/@grpc/grpc-js/build/src/client.js:342:32)
+    at ServiceClientImpl.<anonymous> (/workspace/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at /workspace/node_modules/@google-cloud/firestore/build/src/v1/firestore_client.js:242:33
+    at /workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:38:28
+    at /workspace/node_modules/google-gax/build/src/normalCalls/timeout.js:44:16
+    at Object.request (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:234:40)
+    at makeRequest (/workspace/node_modules/retry-request/index.js:159:28)
+    at retryRequest (/workspace/node_modules/retry-request/index.js:119:5)
+    at StreamProxy.setStream (/workspace/node_modules/google-gax/build/src/streamingCalls/streaming.js:225:37)
+    at StreamingApiCaller.call (/workspace/node_modules/google-gax/build/src/streamingCalls/streamingApiCaller.js:54:16)
+Caused by: Error
+    at QueryUtil._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/query-util.js:44:23)
+    at VectorQuery._getResponse (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:105:32)
+    at VectorQuery.get (/workspace/node_modules/@google-cloud/firestore/build/src/reference/vector-query.js:98:39)
+    at MemoryService.findSimilarBricks (/workspace/lib/MemoryService.js:177:18)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 0)
+    at async /workspace/lib/index.js:261:65
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4 {
+  code: 9,
+  details: `Missing vector index configuration. Please create the required index with the following gcloud command: gcloud firestore indexes composite create --project=antigravity-brain-79792 --collection-group=bricks --query-scope=COLLECTION --field-config=vector-config='{"dimension":"1536","flat": "{}"}',field-path=embedding`,
+  metadata: Metadata {
+    internalRepr: Map(1) { 'x-debug-tracking-id' => [Array] },
+    opaqueData: Map(0) {},
+    options: {}
+  }
+}
+2026-03-10T06:44:58.310486Z I antigravitybot: [ROUTING] Intent: REASONING | Memories: 0
+2026-03-10T06:44:58.310681Z I antigravitybot: [LLM] Calling mercury-2...
+2026-03-10T06:45:12.802593Z I antigravitybot: [TELEGRAM] Sending 13781 chars...
+2026-03-10T06:45:16.126667Z I antigravitybot: [MEMORY] Substance détectée pour 6722033496, lancement de la synthèse...
+2026-03-10T06:45:55.173742Z I antigravitybot: 
+2026-03-10T06:45:55.327206Z I antigravitybot: [LOCK] Skip update 881070025 (already processing)
+2026-03-10T06:46:03.089174Z E antigravitybot: [MEMORY] Échec de la synthèse SyntaxError: Unexpected token 'V', "Voici un r"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at MemoryService.triggerSummarization (/workspace/lib/MemoryService.js:271:37)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.allSettled (index 2)
+    at async /workspace/lib/index.js:322:9
+    at async /workspace/node_modules/firebase-functions/lib/common/providers/https.js:566:4
+2026-03-10T06:46:03.089272Z I antigravitybot: [DONE] update 881070025 processed in 67899ms

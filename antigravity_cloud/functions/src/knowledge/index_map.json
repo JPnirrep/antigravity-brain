@@ -1,0 +1,60 @@
+{
+    "module_id": "KLEIA_UP_001",
+    "project_evolution": "Souffles Positifs -> KLEIA-UP",
+    "routing_tags": [
+        "motivation",
+        "stress",
+        "corps",
+        "pitch",
+        "affirmation",
+        "peurs"
+    ],
+    "fragments": {
+        "identity": {
+            "ref": "doc_001",
+            "keywords": [
+                "forces",
+                "via",
+                "valeurs",
+                "sens",
+                "motivation"
+            ],
+            "token_est": 150
+        },
+        "stress_logic": {
+            "ref": "doc_002",
+            "keywords": [
+                "drivers",
+                "process_com",
+                "peurs",
+                "echec",
+                "anxiete"
+            ],
+            "token_est": 200
+        },
+        "physical_performance": {
+            "ref": "doc_003",
+            "keywords": [
+                "ancrage",
+                "respiration",
+                "non-verbal",
+                "regard",
+                "presence"
+            ],
+            "token_est": 180
+        },
+        "content_structure": {
+            "ref": "doc_004",
+            "keywords": [
+                "storytelling",
+                "conference",
+                "pitch",
+                "plan",
+                "accroche"
+            ],
+            "token_est": 120
+        }
+    },
+    "deduplication_rules": "USE_PRIMARY_SOURCE_ONLY",
+    "firebase_collection": "kleia_knowledge_base"
+}
