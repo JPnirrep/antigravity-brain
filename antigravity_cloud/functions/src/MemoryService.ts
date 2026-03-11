@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import * as logger from "firebase-functions/logger";
 import axios from "axios";
+import { IntentService } from "./IntentService";
 
 if (admin.apps.length === 0) {
     admin.initializeApp();
@@ -12,59 +13,72 @@ export interface Message {
     role: "user" | "assistant" | "system";
     content: string;
     timestamp?: admin.firestore.Timestamp;
+    intent?: string; // Ajout pour le filtrage "Vulture"
+    score?: number; // Ajout pour le filtrage "Vulture"
+}
+
+export interface KnowledgeConnector {
+    id: string;
+    keywords: string[];
+    description: string;
 }
 
 export class MemoryService {
+    // Registre statique pour la performance (Frugalité)
+    private static readonly KNOWLEDGE_REGISTRY: KnowledgeConnector[] = [
+        {
+            id: "identity",
+            keywords: ["forces", "via", "valeurs", "sens", "motivation"],
+            description: "Forces signatures, VIA Character, Récit de réussite (Sources L1, L5). Focus: Alignement identitaire."
+        },
+        {
+            id: "stress_logic",
+            keywords: ["drivers", "process_com", "peurs", "echec", "anxiete", "stress"],
+            description: "Auto-diagnostic Drivers, Profil de stress, Phrases Antidotes. Focus: Permissions mentales sous pression."
+        },
+        {
+            id: "physical_performance",
+            keywords: ["ancrage", "respiration", "non-verbal", "regard", "presence", "corps"],
+            description: "Respiration abdominale, Ancrage (Arbre), Verticalité, Power Posing. Focus: Stabilité physique et nerveuse."
+        },
+        {
+            id: "content_structure",
+            keywords: ["storytelling", "conference", "pitch", "plan", "accroche", "discours"],
+            description: "Le Golden Circle, Structure 3 actes, Méthode DESC. Focus: Architecture narrative et impact du message."
+        }
+    ];
 
     /**
-     * Knowledge Router (KLEIA-UP)
-     * Analyse la requête et injecte les fragments de connaissance pertinents.
-     * Approche statique pour une performance maximale et coût 0.
+     * Nettoyage et parsing JSON robuste.
      */
     static tryParseJSON(text: string): any {
         try {
-            // Tentative de parsing direct
             return JSON.parse(text);
         } catch (e) {
-            // Nettoyage des backticks et du texte parasite
             const match = text.match(/\{[\s\S]*\}/);
             if (match) {
                 try {
                     return JSON.parse(match[0]);
                 } catch (e2) {
-                    throw new Error("Impossible de parser le JSON même après nettoyage");
+                    throw new Error("Impossible de parser le JSON");
                 }
             }
             throw e;
         }
     }
 
+    /**
+     * Knowledge Router (KLEIA-UP)
+     * Utilise le registre de connecteurs inspiré du pattern CLAW.
+     */
     static getRelevantKnowledge(text: string): string {
         try {
             const query = text.toLowerCase();
-            const indexMap: Record<string, { keywords: string[], content: string }> = {
-                "identity": {
-                    keywords: ["forces", "via", "valeurs", "sens", "motivation"],
-                    content: "Forces signatures, VIA Character, Récit de réussite (Sources L1, L5). Focus: Alignement identitaire."
-                },
-                "stress_logic": {
-                    keywords: ["drivers", "process_com", "peurs", "echec", "anxiete", "stress"],
-                    content: "Auto-diagnostic Drivers, Profil de stress, Phrases Antidotes. Focus: Permissions mentales sous pression."
-                },
-                "physical_performance": {
-                    keywords: ["ancrage", "respiration", "non-verbal", "regard", "presence", "corps"],
-                    content: "Respiration abdominale, Ancrage (Arbre), Verticalité, Power Posing. Focus: Stabilité physique et nerveuse."
-                },
-                "content_structure": {
-                    keywords: ["storytelling", "conference", "pitch", "plan", "accroche", "discours"],
-                    content: "Le Golden Circle, Structure 3 actes, Méthode DESC. Focus: Architecture narrative et impact du message."
-                }
-            };
-
             let matchedContent = "";
-            for (const [id, data] of Object.entries(indexMap)) {
-                if (data.keywords.some(k => query.includes(k))) {
-                    matchedContent += `\n- [Ref: ${id}] : ${data.content}`;
+
+            for (const connector of this.KNOWLEDGE_REGISTRY) {
+                if (connector.keywords.some(k => query.includes(k))) {
+                    matchedContent += `\n- [Ref: ${connector.id}] : ${connector.description}`;
                 }
             }
 
@@ -116,7 +130,8 @@ export class MemoryService {
                 if (!isLogistics) {
                     messages.push({
                         role: data.role,
-                        content: data.content
+                        content: data.content,
+                        intent: data.intent // Vulture: On récupère l'intent
                     });
                 }
             });
@@ -131,7 +146,7 @@ export class MemoryService {
     /**
      * Enregistre un message.
      */
-    static async saveMessage(chatId: string, role: "user" | "assistant" | "system", content: string): Promise<void> {
+    static async saveMessage(chatId: string, role: "user" | "assistant" | "system", content: string, intent?: string, score?: number): Promise<void> {
         try {
             await db.collection("chats")
                 .doc(chatId.toString())
@@ -139,6 +154,8 @@ export class MemoryService {
                 .add({
                     role,
                     content,
+                    intent: intent || "standard",
+                    score: score || 0.5,
                     timestamp: admin.firestore.FieldValue.serverTimestamp()
                 });
         } catch (error: any) {
@@ -248,7 +265,7 @@ export class MemoryService {
                     vectorField: "embedding",
                     queryVector: queryVector,
                     distanceMeasure: "COSINE",
-                    limit: 3
+                    limit: 5
                 })
                 .get();
 
@@ -258,10 +275,11 @@ export class MemoryService {
                 results.push({
                     title: data.title,
                     content: data.content,
-                    tags: data.tags
+                    tags: data.tags,
+                    source: data.source || "chat"
                 });
             });
-            return results.slice(0, 3);
+            return results;
         } catch (error) {
             logger.error("[RESONANCE] Échec de la recherche vectorielle", error);
             return [];
@@ -328,27 +346,14 @@ export class MemoryService {
             // Sécurité : Ne pas synthétiser si le contenu est trop court (< 2000 chars)
             if (contentToSummarize.length < 2000) return;
 
-            // Détection de "Substance" - Est-ce que ça vaut le coup de synthétiser ?
-            const checkResponse = await axios.post("https://openrouter.ai/api/v1/chat/completions", {
-                model: "google/gemini-2.0-flash-lite-001", // OPTIMISATION : Lite pour la validation simple
-                messages: [
-                    { role: "system", content: "Réponds uniquement par OUI ou NON. Est-ce que cet échange contient des informations structurantes, des décisions ou des concepts profonds qui méritent d'être indexés ?" },
-                    { role: "user", content: contentToSummarize.slice(-3000) } // On regarde la fin de l'échange
-                ],
-                max_tokens: 5
-            }, {
-                headers: {
-                    "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-                    "HTTP-Referer": "https://antigravity-brain.web.app", // Pour OpenRouter
-                    "X-Title": "Antigravity Brain"
-                },
-                timeout: 10000
-            });
+            // Vulture Phase 1 : Utilisation des Intent Scores pour filtrage précoce
+            const averageScore = currentHistory.reduce((acc, m) => acc + (m.score || 0.5), 0) / currentHistory.length;
+            if (averageScore < 0.4) {
+                logger.info(`[MEMORY] Score de substance trop faible (${averageScore.toFixed(2)}), synthèse annulée.`);
+                return;
+            }
 
-            const shouldSummarize = checkResponse.data.choices[0]?.message?.content?.trim().toUpperCase();
-            if (shouldSummarize !== "OUI") return;
-
-            logger.info(`[MEMORY] Substance détectée pour ${chatId}, lancement de la synthèse...`);
+            logger.info(`[MEMORY] Substance détectée (Score: ${averageScore.toFixed(2)}), lancement de la synthèse...`);
 
             const nivSystemPrompt = `Tu es le Synthétiseur NIV. Ton rôle est d'extraire la SUBSTANCE de la conversation.
 REFUSE l'IA-Speak, les résumés génériques et le vide académique.
@@ -447,13 +452,23 @@ PAS DE BLA-BLA. JUSTE LE JSON.`;
         try {
             const embedding = await this.getEmbedding(`${title} ${content}`);
 
-            await db.collection("bricks").add({
+            const docRef = await db.collection("bricks").add({
                 chatId,
                 title,
                 content,
                 tags,
                 embedding: admin.firestore.FieldValue.vector(embedding),
                 source: "niv_extraction",
+                createdAt: admin.firestore.FieldValue.serverTimestamp()
+            });
+
+            // Vulture Phase 2 : Marquage pour synchronisation GitHub
+            await db.collection("pending_sync").add({
+                brickId: docRef.id,
+                title,
+                content,
+                tags,
+                status: "pending",
                 createdAt: admin.firestore.FieldValue.serverTimestamp()
             });
         } catch (error: any) {

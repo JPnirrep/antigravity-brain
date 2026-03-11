@@ -6,6 +6,7 @@ import * as dotenv from "dotenv";
 import * as admin from "firebase-admin";
 import { MemoryService, Message } from "./MemoryService";
 import { AudioService } from "./AudioService";
+import { IntentService } from "./IntentService";
 import { Resend } from "resend";
 
 dotenv.config();
@@ -35,6 +36,14 @@ const NIV_AGENTS = `
 2. Épistémo-Neuro : Rigueur scientifique (vmPFC, Cortisol, SNA). Cite des mécanismes, pas des généralités.
 3. Le Garde-Fou : Traquait l'IA-speak. Si une phrase sonne comme un assistant virtuel, il l'efface.
 4. Le Styliste (Cyrulnik) : Narration métaphorique. Il transforme la data en destin.
+`;
+
+const NIV_GUARDIAN = `
+### LE GARDIEN DE LA FRUGALITÉ (SOUVERAINETÉ)
+Ton rôle est de protéger l'intégrité et la simplicité du système.
+1. REFUSE toute solution technique qui brise la frugalité (ex: installation de nouveaux langages, besoin de serveurs dédiés/VPS si serverless suffit).
+2. ALERTE l'utilisateur si une piste mène à une complexité inutile ou à une perte de souveraineté.
+3. PRÉFÈRE le "Pillage d'idées" (Vulture) à l'import de frameworks lourds.
 `;
 
 /**
@@ -311,29 +320,19 @@ export const antigravityBot = onRequest({
             return;
         }
 
-        // --- 1. RÉSONANCE & ROUTING ---
-        logger.info("[ROUTING] Calling intent detection (Lite version)...");
-        const [memories, routingResponse, history, indexJSON] = await Promise.all([
-            MemoryService.findSimilarBricks(text),
-            axios.post("https://openrouter.ai/api/v1/chat/completions", {
-                model: "google/gemini-2.0-flash-lite-001", // OPTIMISATION: Modèle Lite pour le routage
-                messages: [{ role: "system", content: "Routeur Antigravity. Réponds uniquement : REASONING, CREATIVE, ou FAST." }, { role: "user", content: text }],
-                max_tokens: 10
-            }, {
-                headers: {
-                    "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-                    "HTTP-Referer": "https://antigravity-brain.web.app",
-                    "X-Title": "Antigravity Brain"
-                },
-                timeout: 15000
-            }),
+        // --- 1. RÉSONANCE & ROUTING (VULTURE PHASE 1) ---
+        logger.info("[ROUTING] Calling IntentService...");
+        const [intentResult, memories, history, indexJSON] = await Promise.all([
+            IntentService.detectIntent(text),
+            MemoryService.findSimilarBricks(text), // On garde la recherche vectorielle pour l'instant
             MemoryService.getRecentHistory(chatId, 12),
             MemoryService.getContextSummary(chatId)
         ]);
 
-        const intent = routingResponse.data.choices[0]?.message?.content?.trim().toUpperCase() || "FAST";
+        const intent = intentResult.intent;
+        const substanceScore = intentResult.score;
         const kleiaKnowledge = MemoryService.getRelevantKnowledge(text); // KNOWLEDGE ROUTER
-        logger.info(`[ROUTING] Intent: ${intent} | Memories: ${memories.length} | KLEIA: ${!!kleiaKnowledge}`);
+        logger.info(`[ROUTING] Intent: ${intent} | Score: ${substanceScore} | Memories: ${memories.length} | KLEIA: ${!!kleiaKnowledge}`);
 
         // --- CONTEXT SHAVING (Optimisation Tokens sur sessions longues) ---
         let processedMessages = history;
@@ -354,21 +353,33 @@ export const antigravityBot = onRequest({
         let apiKey = OPENROUTER_API_KEY;
         let apiOptions: any = { temperature: 0.7 };
 
-        const memoryContext = memories.length > 0 ? `\n### RÉSONANCE_MÉMOIRE :\n${memories.map(m => `- ${m.title}: ${m.content}`).join("\n")}` : "";
-        let systemPrompt = `Antigravity Engine | Mode: ${intent}\n${memoryContext}\n${kleiaKnowledge}\n### INDEX: ${JSON.stringify(indexJSON)}`;
+        const memoryContext = memories.length > 0 ? `\n[MÉMORISATION ACTIVÉE] :\n${memories.map(m => {
+            const icon = m.source === "workspace" ? "📚 [DOC]" : "💭 [MÉMOIRE]";
+            return `- ${icon} ${m.title} : ${m.content}`;
+        }).join("\n")}` : "";
+        
+        const NIV_REMINISCENCE = `
+### RÈGLE DE RELATION :
+Si les informations ci-dessus ([MÉMORISATION]) contiennent des éléments pertinents, intègre-les naturellement.
+Cite ton savoir ainsi : "Comme nous l'avions noté dans ta brique [Titre]...".
+Réponds toujours dans ton style NIV : percutant, humain, sans IA-Speak.`;
+
+        const indexSummary = indexJSON ? `[ORIENTATION ACTUELLE] : ${indexJSON.trajectoire || ''} (${indexJSON.vibe || ''})` : "";
+
+        let systemPrompt = `Antigravity Engine | Mode: ${intent}\n${memoryContext}\n${kleiaKnowledge}\n${indexSummary}\n${NIV_REMINISCENCE}`;
 
         if (prefs.mode === "niv") {
             model = "mercury-2";
             url = "https://api.inceptionlabs.ai/v1/chat/completions";
             apiKey = INCEPTION_API_KEY;
             apiOptions.reasoning_effort = "medium";
-            systemPrompt += `\n\n${NIV_MANIFESTE}\n${NIV_AGENTS}`;
-        } else if (intent.includes("REASONING")) {
+            systemPrompt += `\n\n${NIV_MANIFESTE}\n${NIV_AGENTS}\n${NIV_GUARDIAN}`;
+        } else if (IntentService.shouldBeReasoned(intent as any, substanceScore)) {
             model = "mercury-2";
             url = "https://api.inceptionlabs.ai/v1/chat/completions";
             apiKey = INCEPTION_API_KEY;
             apiOptions.reasoning_effort = "medium";
-        } else if (intent.includes("CREATIVE")) {
+        } else if (intent === "CREATIVE") {
             model = "anthropic/claude-3.5-sonnet";
         }
 
@@ -417,8 +428,8 @@ export const antigravityBot = onRequest({
 
         // Tâches de fond (asynchrones)
         await Promise.allSettled([
-            MemoryService.saveMessage(chatId, "user", text),
-            MemoryService.saveMessage(chatId, "assistant", botText),
+            MemoryService.saveMessage(chatId, "user", text, intent, substanceScore),
+            MemoryService.saveMessage(chatId, "assistant", botText, intent, substanceScore),
             MemoryService.triggerSummarization(chatId, [...history, { role: "user", content: text }, { role: "assistant", content: botText }]),
             lockRef.update({ status: "done" })
         ]);
