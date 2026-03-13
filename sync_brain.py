@@ -24,9 +24,28 @@ def sync_from_firestore():
             if os.path.exists(key_path):
                 cred = credentials.Certificate(key_path)
                 firebase_admin.initialize_app(cred)
+            elif os.environ.get("FIREBASE_SERVICE_ACCOUNT"):
+                print("🔑 Utilisation de FIREBASE_SERVICE_ACCOUNT depuis .env")
+                service_account_info = json.loads(os.environ.get("FIREBASE_SERVICE_ACCOUNT"))
+                cred = credentials.Certificate(service_account_info)
+                firebase_admin.initialize_app(cred)
             else:
-                print("⚠️ serviceAccountKey.json non trouvé. Tentative via Application Default Credentials...")
-                firebase_admin.initialize_app()
+                from dotenv import load_dotenv
+                # On tente de charger depuis le .env des functions
+                env_path = "antigravity_cloud/functions/.env"
+                if os.path.exists(env_path):
+                    load_dotenv(env_path)
+                    sa_info = os.environ.get("FIREBASE_SERVICE_ACCOUNT")
+                    if sa_info:
+                        print("🔑 Utilisation de FIREBASE_SERVICE_ACCOUNT depuis le .env des functions")
+                        cred = credentials.Certificate(json.loads(sa_info))
+                        firebase_admin.initialize_app(cred)
+                    else:
+                        print("⚠️ serviceAccountKey.json non trouvé. Tentative via Application Default Credentials...")
+                        firebase_admin.initialize_app()
+                else:
+                    print("⚠️ serviceAccountKey.json non trouvé. Tentative via Application Default Credentials...")
+                    firebase_admin.initialize_app()
                 
         db = firestore.client()
         
@@ -41,7 +60,7 @@ def sync_from_firestore():
         count = 0
         for doc in docs:
             data = doc.to_dict()
-            title = data.get("title", "Sans titre").replace(" ", "_").lower()
+            title = data.get("title", "Sans titre").replace(" ", "_").replace("/", "-").replace("\\", "-").lower()
             date_str = data.get("createdAt").strftime("%Y-%m-%d") if data.get("createdAt") else "no-date"
             filename = f"{BRICKS_DIR}/{date_str}_{title}.md"
             

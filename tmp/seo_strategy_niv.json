@@ -1,0 +1,19 @@
+{
+  "pages": {
+    "index": {
+      "title": "KLEIA-UP | Leadership Organique & Prise de Parole Incarnée",
+      "description": "Libérez votre autorité naturelle et votre leadership authentique. Accompagnement sur-mesure pour incarner pleinement votre puissance d'expression.",
+      "keywords_lsi": "leadership organique, autorité naturelle, prise de parole authentique, puissance d'expression, développement personnel, incarnation, confiance en soi, impact"
+    },
+    "entreprises": {
+      "title": "Accompagnement Collectif | Déclenchez l'Élan de vos Équipes | KLEIA-UP",
+      "description": "Transformez la dynamique de vos équipes grâce au leadership organique. Libérez le potentiel collectif et catalysez l'intelligence collaborative.",
+      "keywords_lsi": "cohésion d'équipe, intelligence collective, dynamique de groupe, management authentique, performance collective, communication d'entreprise, team building, culture d'entreprise"
+    },
+    "b2c": {
+      "title": "HSP/HPI : Révélez votre Unicité | Coaching Personnalisé | KLEIA-UP",
+      "description": "Sortez de l'invisibilité et transformez votre hypersensibilité en force. Coaching dédié aux profils HSP/HPI pour rayonner authentiquement.",
+      "keywords_lsi": "hypersensibilité, haut potentiel, HSP, HPI, développement personnel, confiance en soi, authenticité, rayonnement personnel, épanouissement"
+    }
+  }
+}

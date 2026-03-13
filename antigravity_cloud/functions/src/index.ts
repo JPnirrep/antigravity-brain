@@ -249,6 +249,33 @@ export const antigravityBot = onRequest({
             return;
         }
 
+        // --- COMMANDE DE SURVEILLANCE DES CREDITS ---
+        if (text === "/credits") {
+            try {
+                const response = await axios.get("https://openrouter.ai/api/v1/credits", {
+                    headers: { "Authorization": `Bearer ${OPENROUTER_API_KEY}` }
+                });
+                const credits = response.data.data;
+                const totalUsed = credits.usage.toFixed(2);
+                
+                let creditText = `💰 **Statut Budget OpenRouter**\n\n`;
+                creditText += `📉 **Usage total :** $${totalUsed}\n`;
+                if (credits.is_locked) creditText += `⚠️ **COMPTE VERROUILLÉ**\n`;
+                
+                await axios.post(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                    chat_id: chatId, text: creditText, parse_mode: "Markdown"
+                });
+            } catch (e: any) {
+                logger.error("[CREDITS] Failed to fetch", e.message);
+                await axios.post(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                    chat_id: chatId, text: "❌ Impossible de récupérer les crédits OpenRouter."
+                });
+            }
+            await lockRef.update({ status: "done" });
+            res.status(200).send("OK");
+            return;
+        }
+
         // --- NOUVELLE COMMANDE RECHERCHE (EXPLORATEUR DE CHAOS) ---
         if (text.startsWith("/recherche")) {
             logger.info(`[COMMAND] /recherche detected: ${text}`);
@@ -533,5 +560,80 @@ export const weeklyRecap = onSchedule({
         }
     } catch (error) {
         logger.error("[WEEKLY] Erreur", error);
+    }
+});
+
+/**
+ * RECEPTION DES LEADS (KLEIA-UP REACH)
+ * Reçoit les données du formulaire de contact du site statique.
+ */
+export const reachContact = onRequest({
+    cors: true,
+    invoker: "public",
+}, async (req, res) => {
+    try {
+        if (req.method !== "POST") {
+            res.status(405).send("Method Not Allowed");
+            return;
+        }
+
+        const { prenom, nom, email, source = "KLEIA-UP Website" } = req.body;
+
+        if (!email) {
+            res.status(400).send("Email requis");
+            return;
+        }
+
+        logger.info(`[REACH] Nouveau lead : ${prenom} ${nom} (${email})`);
+
+        // 1. Enregistrement Firestore
+        const leadRef = await admin.firestore().collection("leads").add({
+            prenom,
+            nom,
+            email,
+            source,
+            status: "new",
+            timestamp: admin.firestore.FieldValue.serverTimestamp()
+        });
+
+        // 2. Notification Telegram à Sandrina
+        const messageText = `🚀 **Nouveau Contact KLEIA-UP !**\n\n👤 **Nom :** ${prenom} ${nom}\n📧 **Email :** ${email}\n📍 **Source :** ${source}\n\n_Traite cette demande avec jubilation._`;
+        
+        // On envoie au chat ID par défaut (configuré dans le .env ou celui de JP si c'est lui le destinataire)
+        const targetChatId = "6722033496"; // Le chat ID de JP/Sandrina pour les alertes
+        await axios.post(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+            chat_id: targetChatId,
+            text: messageText,
+            parse_mode: "Markdown"
+        });
+
+        // 3. Email de confirmation via Resend (Optionnel mais premium)
+        if (process.env.RESEND_API_KEY) {
+            const resend = new Resend(process.env.RESEND_API_KEY);
+            await resend.emails.send({
+                from: "Sandrina - KLEIA-UP <contact@kleia-up.fr>",
+                to: email,
+                subject: "Bienvenue dans le mouvement KLEIA-UP",
+                html: `
+                    <div style="font-family: sans-serif; color: #1A1A1A; max-width: 600px; margin: 0 auto; border: 1px solid #F0F0F0; padding: 40px; border-radius: 8px;">
+                        <h1 style="color: #8B1D3D;">Merci de votre confiance, ${prenom}.</h1>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">Nous avons bien reçu votre demande de contact concernant le mouvement KLEIA-UP.</p>
+                        <p style="font-size: 1.1rem; line-height: 1.6;">Sandrina Perrin reviendra vers vous très prochainement pour échanger sur vos besoins et l'activation du potentiel de vos équipes.</p>
+                        <hr style="border: 0; border-top: 1px solid #EEE; margin: 30px 0;">
+                        <p style="font-size: 0.9rem; color: #666;">En attendant, vous pouvez réserver un créneau directement si ce n'est pas déjà fait.</p>
+                        <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3Ap30f8OGJhuD038R_nIP9by6iuDtia6aplu2ffnQAoo24JIq7NKyR7rMHI7qFQmTA8vzsUJ5p" 
+                           style="display: inline-block; background-color: #8B1D3D; color: white; padding: 12px 24px; border-radius: 50px; text-decoration: none; font-weight: bold; margin-top: 10px;">
+                           RÉSERVER MON CRÉNEAU
+                        </a>
+                    </div>
+                `
+            });
+        }
+
+        res.status(200).json({ success: true, leadId: leadRef.id });
+
+    } catch (error: any) {
+        logger.error("[REACH] Erreur critique lead", error.message);
+        res.status(500).json({ success: false, error: error.message });
     }
 });

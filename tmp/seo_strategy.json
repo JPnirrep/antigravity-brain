@@ -1,0 +1,19 @@
+{
+  "seo_matrix": {
+    "index": {
+      "title": "KLEIA-UP | Votre Partenaire Digital d'Excellence",
+      "description": "Cabinet de conseil digital premium spécialisé dans la transformation numérique des entreprises. Expertise stratégique, solutions sur-mesure et accompagnement personnalisé.",
+      "keywords_lsi": ["transformation digitale haut de gamme", "conseil numérique premium", "stratégie digitale", "excellence numérique", "innovation business", "accompagnement personnalisé", "expertise digitale", "solutions entreprise"]
+    },
+    "entreprises": {
+      "title": "Solutions Entreprises | KLEIA-UP - L'Excellence Digitale au Service de votre Croissance",
+      "description": "Accompagnement stratégique et solutions digitales premium pour entreprises ambitieuses. Transformez vos défis en opportunités avec notre expertise pointue.",
+      "keywords_lsi": ["conseil digital entreprise", "transformation numérique B2B", "solutions corporate", "stratégie digitale entreprise", "innovation business", "excellence opérationnelle", "optimisation digitale", "croissance numérique"]
+    },
+    "b2c": {
+      "title": "Services Particuliers | KLEIA-UP - Votre Ambition Numérique Personnalisée",
+      "description": "Services digitaux premium pour particuliers exigeants. Donnez vie à vos projets numériques avec un accompagnement d'exception sur mesure.",
+      "keywords_lsi": ["services numériques premium", "accompagnement digital personnalisé", "projets digitaux particuliers", "excellence numérique personnelle", "solutions individuelles", "conseil digital privé", "transformation numérique personnelle", "innovation individuelle"]
+    }
+  }
+}
